@@ -5,6 +5,7 @@
  */
 package Models;
 
+import Core.Model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

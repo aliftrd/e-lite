@@ -5,6 +5,7 @@
  */
 package Controllers;
 
+import Core.Controller;
 import Models.Auth;
 import java.net.URL;
 import java.util.ResourceBundle;

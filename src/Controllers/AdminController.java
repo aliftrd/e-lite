@@ -5,6 +5,7 @@
  */
 package Controllers;
 
+import Core.Controller;
 import Config.BCrypt;
 import Models.Admin;
 import Models.Auth;
