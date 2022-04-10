@@ -5,10 +5,6 @@
  */
 package Config;
 
-import com.github.plural4j.Plural;
-import com.mysql.jdbc.StringUtils;
-import java.util.Locale;
-
 /**
  *
  * @author Illuminate
