@@ -35,13 +35,6 @@ public class Admin extends Model {
         //
     }
     
-    public ResultSet getAllWithoutAuth() throws SQLException {
-        String query = "SELECT * FROM " + this.table + " WHERE id != '" + new Auth().getId() + "'";
-        ResultSet response = this.getQuery(query);
-            
-        return response;
-    }
-    
     public boolean store(String name, String username, String password, String phone, String gender, String address) throws SQLException {
         String query = "INSERT INTO " + this.table + " (id, name, username, password, phone, gender, address, created_at, updated_at) VALUES (NULL, '" + name + "', '" + username + "', '" + password + "', '" + phone + "', '" + gender + "', '" + address + "', NOW(), NOW())";
         this.executeQuery(query);
