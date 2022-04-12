@@ -29,6 +29,10 @@ public class MasterController extends Controller implements Initializable {
         main.render("../View/Master/Admin.fxml");
     }
     
+    public void btnPengarangHandle(MouseEvent mct) throws IOException {
+        main.render("../View/Master/Author.fxml");
+    }
+    
     @FXML
     private Label nameBox;
     
