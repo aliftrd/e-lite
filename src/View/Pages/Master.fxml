@@ -15,35 +15,262 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pane layoutX="61.0" layoutY="49.0" onMouseClicked="#btnPetugasHandle">
-                     <styleClass>
-                        <String fx:value="master-btn" />
-                        <String fx:value="bg-white" />
-                     </styleClass>
-                     <children>
-                        <Pane>
-                           <styleClass>
-                              <String fx:value="icon-shape" />
-                              <String fx:value="bg-dark-blue" />
-                           </styleClass>
+                  <ScrollPane layoutY="14.0" style="-fx-min-width: 1002; -fx-min-height: 646;" styleClass="transparent">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="770.0" prefWidth="1002.0" style="-fx-min-width: 1002; -fx-min-height: 646;" styleClass="bg-ligth">
                            <children>
-                              <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="32.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../Public/Images/petugas.png" />
-                                 </image></ImageView>
+                              <Pane layoutX="54.0" layoutY="14.0" onMouseClicked="#btnPetugasHandle">
+                                 <children>
+                                    <Pane>
+                                       <children>
+                                          <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="32.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../Public/Images/petugas.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <styleClass>
+                                          <String fx:value="icon-shape" />
+                                          <String fx:value="bg-dark-blue" />
+                                       </styleClass>
+                                    </Pane>
+                                    <Text layoutX="190.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-dark-blue" text="Petugas">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="191.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-grey" text="Kelola data petugas">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                                 <styleClass>
+                                    <String fx:value="master-btn" />
+                                    <String fx:value="bg-white" />
+                                 </styleClass>
+                              </Pane>
+                              <Pane layoutX="518.0" layoutY="10.0" onMouseClicked="#btnPetugasHandle">
+                                 <children>
+                                    <Pane>
+                                       <children>
+                                          <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="32.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../Public/Images/petugas.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <styleClass>
+                                          <String fx:value="icon-shape" />
+                                          <String fx:value="bg-dark-blue" />
+                                       </styleClass>
+                                    </Pane>
+                                    <Text layoutX="190.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-dark-blue" text="Pengarang">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="191.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-grey" text="Kelola data pengaraang">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                                 <styleClass>
+                                    <String fx:value="master-btn" />
+                                    <String fx:value="bg-white" />
+                                 </styleClass>
+                              </Pane>
+                              <Pane layoutX="518.0" layoutY="190.0" onMouseClicked="#btnPetugasHandle">
+                                 <children>
+                                    <Pane>
+                                       <children>
+                                          <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="32.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../Public/Images/petugas.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <styleClass>
+                                          <String fx:value="icon-shape" />
+                                          <String fx:value="bg-dark-blue" />
+                                       </styleClass>
+                                    </Pane>
+                                    <Text layoutX="190.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-dark-blue" text="Anggota">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="191.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-grey" text="Kelola data anggota">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                                 <styleClass>
+                                    <String fx:value="master-btn" />
+                                    <String fx:value="bg-white" />
+                                 </styleClass>
+                              </Pane>
+                              <Pane layoutX="54.0" layoutY="194.0" onMouseClicked="#btnPetugasHandle">
+                                 <children>
+                                    <Pane>
+                                       <children>
+                                          <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="32.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../Public/Images/petugas.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <styleClass>
+                                          <String fx:value="icon-shape" />
+                                          <String fx:value="bg-dark-blue" />
+                                       </styleClass>
+                                    </Pane>
+                                    <Text layoutX="190.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-dark-blue" text="Penerbit">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="191.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-grey" text="Kelola data penerbit">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                                 <styleClass>
+                                    <String fx:value="master-btn" />
+                                    <String fx:value="bg-white" />
+                                 </styleClass>
+                              </Pane>
+                              <Pane layoutX="54.0" layoutY="374.0" onMouseClicked="#btnPetugasHandle">
+                                 <children>
+                                    <Pane>
+                                       <children>
+                                          <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="32.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../Public/Images/petugas.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <styleClass>
+                                          <String fx:value="icon-shape" />
+                                          <String fx:value="bg-dark-blue" />
+                                       </styleClass>
+                                    </Pane>
+                                    <Text layoutX="190.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-dark-blue" text="Rak">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="191.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-grey" text="Kelola data rak">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                                 <styleClass>
+                                    <String fx:value="master-btn" />
+                                    <String fx:value="bg-white" />
+                                 </styleClass>
+                              </Pane>
+                              <Pane layoutX="518.0" layoutY="370.0" onMouseClicked="#btnPetugasHandle">
+                                 <children>
+                                    <Pane>
+                                       <children>
+                                          <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="32.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../Public/Images/petugas.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <styleClass>
+                                          <String fx:value="icon-shape" />
+                                          <String fx:value="bg-dark-blue" />
+                                       </styleClass>
+                                    </Pane>
+                                    <Text layoutX="190.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-dark-blue" text="Buku">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="191.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-grey" text="Kelola data buku">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                                 <styleClass>
+                                    <String fx:value="master-btn" />
+                                    <String fx:value="bg-white" />
+                                 </styleClass>
+                              </Pane>
+                              <Pane layoutX="518.0" layoutY="550.0" onMouseClicked="#btnPetugasHandle">
+                                 <children>
+                                    <Pane>
+                                       <children>
+                                          <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="32.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../Public/Images/petugas.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <styleClass>
+                                          <String fx:value="icon-shape" />
+                                          <String fx:value="bg-dark-blue" />
+                                       </styleClass>
+                                    </Pane>
+                                    <Text layoutX="190.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-dark-blue" text="Riwayat Transaksi">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="191.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-grey" text="Kelola data riwayat transaksi">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                                 <styleClass>
+                                    <String fx:value="master-btn" />
+                                    <String fx:value="bg-white" />
+                                 </styleClass>
+                              </Pane>
+                              <Pane layoutX="54.0" layoutY="554.0" onMouseClicked="#btnPetugasHandle">
+                                 <children>
+                                    <Pane>
+                                       <children>
+                                          <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="32.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../Public/Images/petugas.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <styleClass>
+                                          <String fx:value="icon-shape" />
+                                          <String fx:value="bg-dark-blue" />
+                                       </styleClass>
+                                    </Pane>
+                                    <Text layoutX="190.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-dark-blue" text="Stok Buku">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="191.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-grey" text="Kelola data stok buku">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                                 <styleClass>
+                                    <String fx:value="master-btn" />
+                                    <String fx:value="bg-white" />
+                                 </styleClass>
+                              </Pane>
                            </children>
-                        </Pane>
-                        <Text layoutX="190.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-dark-blue" text="Petugas">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="191.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-grey" text="Kelola data petugas">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Text>
-                     </children></Pane>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
                </children></AnchorPane>
          </center>
          <left>
