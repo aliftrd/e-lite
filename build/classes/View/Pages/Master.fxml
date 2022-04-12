@@ -15,11 +15,11 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <ScrollPane layoutY="14.0" style="-fx-min-width: 1002; -fx-min-height: 646;" styleClass="transparent">
+                  <ScrollPane hbarPolicy="NEVER" layoutY="-3.0" prefHeight="646.0" prefWidth="1002.0" style="-fx-min-width: 1002; -fx-min-height: 646;" styleClass="transparent">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="770.0" prefWidth="1002.0" style="-fx-min-width: 1002; -fx-min-height: 646;" styleClass="bg-ligth">
+                      <AnchorPane prefHeight="790.0" prefWidth="1002.0" style="-fx-min-width: 1002; -fx-min-height: 646;" styleClass="bg-ligth">
                            <children>
-                              <Pane layoutX="54.0" layoutY="14.0" onMouseClicked="#btnPetugasHandle">
+                              <Pane layoutX="54.0" layoutY="24.0" onMouseClicked="#btnPetugasHandle">
                                  <children>
                                     <Pane>
                                        <children>
@@ -50,7 +50,7 @@
                                     <String fx:value="bg-white" />
                                  </styleClass>
                               </Pane>
-                              <Pane layoutX="518.0" layoutY="10.0" onMouseClicked="#btnPetugasHandle">
+                              <Pane layoutX="518.0" layoutY="20.0" onMouseClicked="#btnPengarangHandle">
                                  <children>
                                     <Pane>
                                        <children>
@@ -81,7 +81,7 @@
                                     <String fx:value="bg-white" />
                                  </styleClass>
                               </Pane>
-                              <Pane layoutX="518.0" layoutY="190.0" onMouseClicked="#btnPetugasHandle">
+                              <Pane layoutX="518.0" layoutY="200.0" onMouseClicked="#btnAnggotaHandle">
                                  <children>
                                     <Pane>
                                        <children>
@@ -112,7 +112,7 @@
                                     <String fx:value="bg-white" />
                                  </styleClass>
                               </Pane>
-                              <Pane layoutX="54.0" layoutY="194.0" onMouseClicked="#btnPetugasHandle">
+                              <Pane layoutX="54.0" layoutY="204.0" onMouseClicked="#btnPenerbitHandle">
                                  <children>
                                     <Pane>
                                        <children>
@@ -143,7 +143,7 @@
                                     <String fx:value="bg-white" />
                                  </styleClass>
                               </Pane>
-                              <Pane layoutX="54.0" layoutY="374.0" onMouseClicked="#btnPetugasHandle">
+                              <Pane layoutX="54.0" layoutY="384.0" onMouseClicked="#btnRakHandle">
                                  <children>
                                     <Pane>
                                        <children>
@@ -174,7 +174,7 @@
                                     <String fx:value="bg-white" />
                                  </styleClass>
                               </Pane>
-                              <Pane layoutX="518.0" layoutY="370.0" onMouseClicked="#btnPetugasHandle">
+                              <Pane layoutX="518.0" layoutY="380.0" onMouseClicked="#btnBukuHandle">
                                  <children>
                                     <Pane>
                                        <children>
@@ -205,7 +205,7 @@
                                     <String fx:value="bg-white" />
                                  </styleClass>
                               </Pane>
-                              <Pane layoutX="518.0" layoutY="550.0" onMouseClicked="#btnPetugasHandle">
+                              <Pane layoutX="518.0" layoutY="560.0" onMouseClicked="#btnPetugasHandle">
                                  <children>
                                     <Pane>
                                        <children>
@@ -236,7 +236,7 @@
                                     <String fx:value="bg-white" />
                                  </styleClass>
                               </Pane>
-                              <Pane layoutX="54.0" layoutY="554.0" onMouseClicked="#btnPetugasHandle">
+                              <Pane layoutX="54.0" layoutY="564.0" onMouseClicked="#btnPetugasHandle">
                                  <children>
                                     <Pane>
                                        <children>
