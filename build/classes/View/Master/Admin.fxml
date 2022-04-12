@@ -102,7 +102,7 @@
                         </Pane>
                      </children>
                   </Pane>
-                  <AnchorPane fx:id="formPage" prefHeight="640.0" prefWidth="1002.0" visible="false">
+                  <AnchorPane fx:id="formPage" prefHeight="640.0" prefWidth="1002.0">
                      <styleClass>
                         <String fx:value="body-child" />
                         <String fx:value="bg-ligth" />

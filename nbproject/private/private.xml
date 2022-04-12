@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/Project/e-lite/src/Main/Main.java</file>
             <file>file:/D:/Project/e-lite/src/Models/Auth.java</file>
             <file>file:/D:/Project/e-lite/src/View/Pages/Dashboard.fxml</file>
@@ -24,6 +25,16 @@
             <file>file:/D:/Project/e-lite/src/Config/Database.java</file>
             <file>file:/D:/Project/e-lite/src/Config/Helper.java</file>
             <file>file:/D:/Project/e-lite/src/Controllers/AuthorController.java</file>
+=======
+            <file>file:/D:/TUGAS/e-lite/src/Models/Auth.java</file>
+            <file>file:/D:/TUGAS/e-lite/src/Controllers/AdminController.java</file>
+            <file>file:/D:/TUGAS/e-lite/src/Models/Member.java</file>
+            <file>file:/D:/TUGAS/e-lite/src/Core/Model.java</file>
+            <file>file:/D:/TUGAS/e-lite/src/Core/Controller.java</file>
+            <file>file:/D:/TUGAS/e-lite/src/Models/Admin.java</file>
+            <file>file:/D:/TUGAS/e-lite/src/Controllers/DashboardController.java</file>
+            <file>file:/D:/TUGAS/e-lite/src/Controllers/MemberController.java</file>
+>>>>>>> e003c8148091f5f153092c0f6603edc3ea1b80e5
         </group>
     </open-files>
 </project-private>
