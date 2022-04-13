@@ -6,34 +6,18 @@
 package Models;
 
 import Core.Model;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  *
  * @author Illuminate
  */
 public class Auth extends Model {
-    static {
-        table = "admins";
-    }
-    
+    protected String table = "admins";
     private static int id;
-    private static String username;
+    private static String name, username;
     
-    public String getName() {
-        try {
-            ResultSet rs = (ResultSet) this.getByUsername(Auth.getUsername());
-            String name = null;
-
-            while(rs.next()) {
-                name = rs.getString("name");
-            }
-
-            return name;
-        } catch (SQLException e) {
-            return e.getMessage();
-        }
+    public Auth() {
+        this.setTable(this.table);
     }
     
     public static void setId(int id)
@@ -46,6 +30,10 @@ public class Auth extends Model {
         Auth.username = username;
     }
     
+    public static void setName(String name) {
+        Auth.name = name;
+    }
+    
     public static int getId()
     {
         return Auth.id;
@@ -54,5 +42,9 @@ public class Auth extends Model {
     public static String getUsername()
     {
         return Auth.username;
+    }
+    
+    public static String getName() {
+        return Auth.name;
     }
 }

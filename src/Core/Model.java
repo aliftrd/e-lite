@@ -15,8 +15,24 @@ import java.sql.SQLException;
  *
  * @author Illuminate
  */
-public abstract class Model {
-    protected static String table;
+abstract public class Model {
+    protected String table;
+    
+    public Model() {
+        init();
+    }
+    
+    private void init() {
+        this.setTable(this.getTable());
+    }
+    
+    public String getTable() {
+        return this.table;
+    }
+    
+    public void setTable(String table) {
+        this.table = table;
+    }
     
     public ResultSet getQuery(String query) throws SQLException
     {

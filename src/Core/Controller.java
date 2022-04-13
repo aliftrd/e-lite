@@ -18,7 +18,7 @@ import javafx.scene.control.ButtonType;
  *
  * @author Illuminate
  */
-public abstract class Controller {
+abstract public class Controller {
     protected Main main;
     
     public Controller() {

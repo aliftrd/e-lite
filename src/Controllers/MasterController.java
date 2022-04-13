@@ -46,7 +46,7 @@ public class MasterController extends Controller implements Initializable {
     }
     
     public void btnBukuHandle(MouseEvent mct) throws IOException {
-        main.render("../View/Master/Admin.fxml");
+        main.render("../View/Master/Book.fxml");
     }
     
     @FXML

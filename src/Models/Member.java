@@ -12,7 +12,5 @@ import Core.Model;
  * @author Illuminate
  */
 public class Member extends Model {
-    static {
-        table = "members";
-    }
+    protected String table = "members";
 }

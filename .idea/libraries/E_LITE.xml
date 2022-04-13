@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="E_LITE">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/E_LITE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -13,9 +13,7 @@ import java.sql.SQLException;
  * @author acer
  */
 public class Author extends Model {
-    static {
-        table = "authors";
-    }
+    protected String table = "authors";
     
     int id;
     String name, phone, address, created_at;

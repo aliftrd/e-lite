@@ -8,6 +8,7 @@ package Controllers;
 import Main.Main;
 import Config.BCrypt;
 import Models.Auth;
+import Core.Controller;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
@@ -24,12 +25,13 @@ import javafx.scene.paint.Color;
  *
  * @author Illuminate
  */
-public class LoginController implements Initializable {
+public class LoginController extends Controller implements Initializable {
     protected Auth authModel;
     protected Main main;
     
     public LoginController() {
         authModel = new Auth();
+        System.out.println(authModel.getTable());
         main = new Main();
     }
         
@@ -51,6 +53,7 @@ public class LoginController implements Initializable {
         String username = usernameInput.getText(), 
                password = passwordInput.getText();
         
+        System.out.println(this.authModel.getTable());
         try {
             ResultSet authUser = this.authModel.getByUsername(username);
             if(username.equals("") || password.equals("")) {
@@ -59,6 +62,7 @@ public class LoginController implements Initializable {
                 if(authUser.next() && BCrypt.checkpw(password, authUser.getString("password"))) {
                     this.authModel.setId(authUser.getInt("id"));
                     this.authModel.setUsername(authUser.getString("username"));
+                    this.authModel.setName(authUser.getString("name"));
 
                     main.render("../View/Pages/Dashboard.fxml");
                 } else {
@@ -67,6 +71,7 @@ public class LoginController implements Initializable {
             }
         } catch(Exception e) {
             String message = e.getMessage();
+            System.out.println(message);
             info.setTextFill(Color.RED);
             info.setText("Error : " + message);
         }

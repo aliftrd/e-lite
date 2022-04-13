@@ -14,10 +14,7 @@ import java.sql.SQLException;
  * @author Illuminate
  */
 public class Admin extends Model {
-    static {
-        table = "admins";
-    }
-    
+    protected String table = "admins";
     int id;
     String name, username, phone, gender, address, created_at;
 
@@ -32,7 +29,7 @@ public class Admin extends Model {
     }
     
     public Admin() {
-        //
+        this.setTable(this.table);
     }
     
     public boolean store(String name, String username, String password, String phone, String gender, String address) throws SQLException {
