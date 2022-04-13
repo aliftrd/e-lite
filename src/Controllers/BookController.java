@@ -8,6 +8,7 @@ package Controllers;
 import Core.Controller;
 import Models.Auth;
 import Models.Book;
+import Models.Author;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
@@ -18,11 +19,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.StringConverter;
 
 /**
  * FXML Controller class
@@ -31,6 +35,7 @@ import javafx.scene.layout.AnchorPane;
  */
 public class BookController extends Controller implements Initializable {
     private Book book = null;
+    private final ObservableList<Author> authorList = FXCollections.observableArrayList();
     
     public BookController() {
         book = new Book();
@@ -66,21 +71,69 @@ public class BookController extends Controller implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         nameBox.setText(new Auth().getName().toUpperCase());
         formPage.setVisible(false);
+        this.initList();
         loadData();
+    }
+    
+    public void initList() {
+        try { 
+            // Author
+            authorInput.setConverter(new StringConverter<Author>() {
+                @Override
+                public String toString(Author object) {
+                    return object.getName();
+                }
+
+                @Override
+                public Author fromString(String string) {
+                    return authorInput.getItems().stream().filter(ap -> 
+                        ap.getName().equals(string)).findFirst().orElse(null);
+                }
+                
+            });
+            
+            ResultSet authors = new Author().getAll();
+            
+            while(authors.next()) {
+                authorList.add(new Author(
+                        authors.getInt("id"),
+                        authors.getString("name"),
+                        authors.getString("phone"),
+                        authors.getString("address"),
+                        authors.getTimestamp("created_at").toString()
+                ));
+                this.authorInput.setItems(authorList);
+            }
+            
+            // Publisher
+            
+            // Shelves
+        } catch(Exception e) {
+            this.showAlert(Alert.AlertType.ERROR, "Ups...", "", e.getMessage());
+        }
     }
     
     @FXML
     private Button btnTambah;
     
     public void btnTambahHandle(ActionEvent evt) {
-        
+        this.btnSubmit.setText("Tambah");
+        this.resetForm();
+        formPage.setVisible(true);
     }
     
     @FXML
     private Button btnEdit;
     
     public void btnEditHandle(ActionEvent evt) {
-        
+        if(tableBuku.getSelectionModel().getSelectedItem() == null) {
+            this.showAlert(Alert.AlertType.ERROR, "Ups...", "", "Silahkan pilih petugas terlebih dahulu");
+        } else {
+            this.book = (Book) tableBuku.getSelectionModel().getSelectedItem();
+            this.setForm(this.book);
+            this.btnSubmit.setText("Simpan");
+            formPage.setVisible(true);        
+        }
     }
     
     @FXML
@@ -91,10 +144,45 @@ public class BookController extends Controller implements Initializable {
     }
     
     @FXML
+    private TextField idInput;
+    @FXML
+    private TextField isbnInput;
+    @FXML
+    private TextField titleInput;
+    @FXML
+    private TextField priceInput;
+    @FXML
+    private ComboBox<Author> authorInput;
+    @FXML
+    private ComboBox publisherInput;
+    @FXML
+    private ComboBox shelfInput;
+    
+    private void setForm(Book book) {
+        idInput.setText(String.valueOf(book.getId()));
+        isbnInput.setText(book.getIsbn());
+        titleInput.setText(book.getTitle());
+        priceInput.setText(String.valueOf(book.getPrice()));
+//        authorInput.setValue(book.getAuthor());
+//        publisherInput.setValue(book.getAddress());
+//        shelfInput.setValue(book.getAddress());
+    }
+    
+    private void resetForm() {
+        idInput.setText(null);
+        isbnInput.setText(null);
+        titleInput.setText(null);
+        priceInput.setText(null);
+        authorInput.setValue(null);
+        publisherInput.setValue(null);
+        shelfInput.setValue(null);
+    }
+    
+    @FXML
     private Button btnKembaliFormPage;
     
     public void btnKembaliFormPageHandle(ActionEvent act) {
-//        this.resetForm();
+        this.resetForm();
         formPage.setVisible(false);
     }
     
@@ -102,7 +190,8 @@ public class BookController extends Controller implements Initializable {
     private Button btnSubmit;
     
     public void btnSubmitHandle(ActionEvent act) {
-        
+        Author author = authorInput.getSelectionModel().getSelectedItem();
+        System.out.println(author.getId());
     }
     
     public void setDataTable() {

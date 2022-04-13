@@ -27,7 +27,7 @@ public class Book extends Model {
     }
     
     public Book() {
-        //
+        this.setTable(this.table);
     }
     
     public int getId() {

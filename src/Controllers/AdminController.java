@@ -202,7 +202,7 @@ public class AdminController extends Controller implements Initializable {
             ResultSet admins = this.admin.getAll();
             
             while(admins.next()) {
-//                if(!admins.getString("username").equals(Auth.getUsername())) {
+                if(!admins.getString("username").equals(Auth.getUsername())) {
                     AdminList.add(new Admin(
                             admins.getInt("id"),
                             admins.getString("name"),
@@ -213,7 +213,7 @@ public class AdminController extends Controller implements Initializable {
                             admins.getTimestamp("created_at").toString()
                     ));
                     tablePetugas.setItems(AdminList);
-//                }
+                }
             }
         } catch (Exception e) {
             this.showAlert(Alert.AlertType.ERROR, "Ups...", "", e.getMessage());

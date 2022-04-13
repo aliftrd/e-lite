@@ -81,14 +81,17 @@
                         <TableView fx:id="tablePengarang" layoutY="40.0" style="-fx-min-width: 906; -fx-min-height: 445;">
                            <columns>
                               <TableColumn fx:id="idCol" editable="false" prefWidth="75.0" text="ID" />
-                              <TableColumn fx:id="nameCol" editable="false" prefWidth="242.0" text="Nama" />
-                              <TableColumn fx:id="phoneCol" editable="false" prefWidth="206.0" sortable="false" text="Nomor" />
-                              <TableColumn fx:id="addressCol" editable="false" prefWidth="382.0" text="Alamat" />
+                              <TableColumn fx:id="nameCol" editable="false" prefWidth="176.0" text="Nama" />
+                              <TableColumn fx:id="phoneCol" editable="false" prefWidth="162.0" sortable="false" text="Nomor" />
+                              <TableColumn fx:id="genderCol" prefWidth="71.0" text="Gender" />
+                              <TableColumn fx:id="pointCol" prefWidth="79.0" text="Poin" />
+                              <TableColumn fx:id="addressCol" editable="false" prefWidth="197.0" text="Alamat" />
+                              <TableColumn fx:id="createdAtCol" prefWidth="145.0" text="Tanggal Bergabung" />
                            </columns>
                         </TableView>
                         <Pane>
                            <children>
-                              <Text layoutX="30.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-light" text="Pengarang">
+                              <Text layoutX="30.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-light" text="Anggota">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -182,6 +185,13 @@
                                           <String fx:value="text-light" />
                                        </styleClass>
                                     </Button>
+                                    <Label layoutX="510.0" layoutY="100.0" text="Gender" />
+                                    <ComboBox fx:id="genderInput" layoutX="510.0" layoutY="131.0" prefWidth="150.0" promptText="Pilih">
+                                       <styleClass>
+                                          <String fx:value="master-input-col-2" />
+                                          <String fx:value="input-control" />
+                                       </styleClass>
+                                    </ComboBox>
                                  </children>
                               </AnchorPane>
                            </content>

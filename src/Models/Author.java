@@ -27,7 +27,7 @@ public class Author extends Model {
     }
     
     public Author() {
-        //
+        this.setTable(this.table);
     }
     
     public boolean store(String name,  String phone, String address) throws SQLException {
@@ -86,7 +86,6 @@ public class Author extends Model {
     public void setCreated_at(String created_at) {
         this.created_at = created_at;
     }
-
 }
 
 

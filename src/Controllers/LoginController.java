@@ -31,7 +31,6 @@ public class LoginController extends Controller implements Initializable {
     
     public LoginController() {
         authModel = new Auth();
-        System.out.println(authModel.getTable());
         main = new Main();
     }
         
@@ -53,7 +52,6 @@ public class LoginController extends Controller implements Initializable {
         String username = usernameInput.getText(), 
                password = passwordInput.getText();
         
-        System.out.println(this.authModel.getTable());
         try {
             ResultSet authUser = this.authModel.getByUsername(username);
             if(username.equals("") || password.equals("")) {
