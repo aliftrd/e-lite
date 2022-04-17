@@ -18,14 +18,6 @@ import java.sql.SQLException;
 abstract public class Model {
     protected String table;
     
-    public Model() {
-        init();
-    }
-    
-    private void init() {
-        this.setTable(this.getTable());
-    }
-    
     public String getTable() {
         return this.table;
     }
@@ -75,10 +67,11 @@ abstract public class Model {
         return response;
     }
     
-    public boolean delete(int Id) throws SQLException {
-        String query = "DELETE FROM " + this.table + " WHERE id = '" + Id + "'";
-        this.executeQuery(query);
-        return true;
+    public boolean delete(int id) throws SQLException {
+        String query = "DELETE FROM " + this.table + " WHERE id = '" + id + "'";
+        boolean response = this.executeQuery(query);
+        
+        return response;
     }
     
      public boolean executeQuery(String query) throws SQLException

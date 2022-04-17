@@ -37,6 +37,7 @@ import javafx.scene.layout.AnchorPane;
  */
 public class AdminController extends Controller implements Initializable {
     private Admin admin = null;
+    private Admin selectionData = null;
     private final ObservableList<String> genderList = FXCollections.observableArrayList("Pria", "Wanita");
     
     public AdminController() {
@@ -95,8 +96,8 @@ public class AdminController extends Controller implements Initializable {
         if(tablePetugas.getSelectionModel().getSelectedItem() == null) {
             this.showAlert(Alert.AlertType.ERROR, "Ups...", "", "Silahkan pilih petugas terlebih dahulu");
         } else {
-            this.admin = (Admin) tablePetugas.getSelectionModel().getSelectedItem();
-            this.setForm(this.admin);
+            this.selectionData = (Admin) tablePetugas.getSelectionModel().getSelectedItem();
+            this.setForm(this.selectionData);
             this.btnSubmit.setText("Simpan");
             formPage.setVisible(true);
         }
@@ -110,8 +111,8 @@ public class AdminController extends Controller implements Initializable {
             this.showAlert(Alert.AlertType.ERROR, "Ups...", "", "Silahkan pilih petugas terlebih dahulu");
         } else {
             if (showConfirm("Anda yakin akan menghpus data ini?", "Data yang anda hapus tidak akan bisa dikembalikan").get() == ButtonType.OK) {
-                this.admin = (Admin) tablePetugas.getSelectionModel().getSelectedItem();
-                this.admin.delete(this.admin.getId());
+                this.selectionData = (Admin) tablePetugas.getSelectionModel().getSelectedItem();
+                this.admin.delete(this.selectionData.getId());
                 loadData();
             }
         }
@@ -162,6 +163,17 @@ public class AdminController extends Controller implements Initializable {
         addressInput.setText(null);
     }
     
+    private void inputValidation() throws Exception {
+        String message = " wajib diisi";
+        if(nameInput.getText() == null) {
+            throw new Exception("Nama wajib diisi");
+        }
+        
+        if(genderInput.getValue() == null) {
+            throw new Exception("Gender wajib diisi");
+        }
+    } 
+    
     @FXML
     private Button btnSubmit;
     
@@ -174,21 +186,24 @@ public class AdminController extends Controller implements Initializable {
                address = addressInput.getText();
         
         try {
+            this.inputValidation();
             if(btnSubmit.getText().toLowerCase().equals("tambah")) {
                 this.admin.store(name, username, password, phone, gender, address);
                 
                 this.showAlert(Alert.AlertType.INFORMATION, "SUKSES", "", "Data petugas berhasil ditambahkan");
             } else {
                 int id = Integer.valueOf(idInput.getText());
-                this.admin.update(id, name, username, password, phone, gender, address);
+                ResultSet currentFullData = this.admin.getById(id);
+                String checkPassword = password.equals("") ? currentFullData.getString("password") : password;
+                this.admin.update(id, name, username, checkPassword, phone, gender, address);
                 
                 this.showAlert(Alert.AlertType.INFORMATION, "SUKSES", "", "Data petugas berhasil diubah");
             }
             
-            loadData();
+            this.loadData();
             formPage.setVisible(false);
-        } catch(SQLException e) {
-            this.showAlert(Alert.AlertType.ERROR, "Ups...", "", e.getMessage());
+        } catch(Exception e) {
+            
         }
     }
     

@@ -55,7 +55,6 @@ abstract public class Controller {
         }
     }
     
-    
     public void showAlert(Alert.AlertType type, String title, String header, String body) {
         Alert alert = new Alert(type);
         alert.setTitle(title);

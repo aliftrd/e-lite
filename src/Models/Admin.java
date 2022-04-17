@@ -39,12 +39,10 @@ public class Admin extends Model {
     }
     
     public boolean update(int id, String name, String username, String password, String phone, String gender, String address) throws SQLException {
-        ResultSet currentFullData = this.getById(id);
-        String checkPassword = password.equals("") ? currentFullData.getString("password") : password;
         String query = "UPDATE " + this.table + " SET "
                 + "name = '" + name + "', "
                 + "username = '" + username + "', "
-                + "password = '" + checkPassword + "', "
+                + "password = '" + password + "', "
                 + "phone = '" + phone + "', "
                 + "gender = '" + gender + "', "
                 + "address = '" + address + "', "
