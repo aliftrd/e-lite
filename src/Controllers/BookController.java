@@ -7,6 +7,7 @@ package Controllers;
 
 import Config.Storage;
 import Core.Controller;
+import Models.Admin;
 import Models.Auth;
 import Models.Book;
 import Models.Author;
@@ -15,6 +16,7 @@ import Models.Shelf;
 import java.io.File;
 import java.net.URL;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +25,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -201,14 +204,25 @@ public class BookController extends Controller implements Initializable {
     @FXML
     private Button btnHapus;
     
-    public void btnHapusHandle(ActionEvent evt) {
-        
+    public void btnHapusHandle(ActionEvent evt) throws SQLException {
+        if(tableBuku.getSelectionModel().getSelectedItem() == null) {
+            this.showAlert(Alert.AlertType.ERROR, "Ups...", "", "Silahkan pilih petugas terlebih dahulu");
+        } else {
+            if (showConfirm("Anda yakin akan menghpus data ini?", "Data yang anda hapus tidak akan bisa dikembalikan").get() == ButtonType.OK) {
+                this.selectionData = (Book) tableBuku.getSelectionModel().getSelectedItem();
+                new Storage().delete(this.selectionData.getImage());
+                this.book.delete(this.selectionData.getId());
+                loadData();
+            }
+        }
     }
     
     @FXML
     private TextField idInput;
     @FXML
     private TextField isbnInput;
+    @FXML
+    private TextField publishYearInput;
     @FXML
     private TextField titleInput;
     @FXML
@@ -230,6 +244,7 @@ public class BookController extends Controller implements Initializable {
     private void setForm(Book book) {
         idInput.setText(String.valueOf(book.getId()));
         isbnInput.setText(book.getIsbn());
+        publishYearInput.setText(String.valueOf(book.getPublish_year()));
         titleInput.setText(book.getTitle());
         priceInput.setText(String.valueOf(book.getPrice()));
         
@@ -251,16 +266,30 @@ public class BookController extends Controller implements Initializable {
             }
             return true;
         });
+        
+        descInput.setText(book.getDescription());
+        Image image = null;
+        if(book.getImage() == null || book.getImage().equals("")) {
+            image = new Image(getClass().getResource("../Public/Images/book/example.png").toString());
+        } else {
+            image = new Image(new File(book.getImage()).toURI().toString());
+        }
+        previewPhoto.setImage(image);
+        photoInput.setText(null);
     }
     
     private void resetForm() {
         idInput.setText(null);
         isbnInput.setText(null);
+        publishYearInput.setText(null);
         titleInput.setText(null);
         priceInput.setText(null);
         authorInput.setValue(null);
         publisherInput.setValue(null);
         shelfInput.setValue(null);
+        descInput.setText(null);
+        previewPhoto.setImage(new Image(getClass().getResource("../Public/Images/book/example.png").toString()));
+        photoInput.setText(null);
     }
     
     @FXML
@@ -271,11 +300,52 @@ public class BookController extends Controller implements Initializable {
         formPage.setVisible(false);
     }
     
+    public void inputValidation() throws Exception {
+        if(isbnInput.getText() == null || isbnInput.getText().equals("")) {
+            throw new Exception("ISBN wajib diisi");
+        }
+        
+        if(titleInput.getText() == null || titleInput.getText().equals("")) {
+            throw new Exception("Judul wajib diisi");
+        }
+        
+        if(priceInput.getText() == null || priceInput.getText().equals("")) {
+            throw new Exception("Harga wajib diisi");
+        }
+        
+    }
+    
     @FXML
     private Button btnSubmit;
     
     public void btnSubmitHandle(ActionEvent act) {
-        System.out.println(selectionData.getPrice());
+        try {
+            this.inputValidation();
+            String path = "src/Public/Images/book", 
+                   fileName = photoInput.getText(),
+                   isbn = isbnInput.getText(),
+                   title = titleInput.getText(),
+                   desc = descInput.getText();
+            int price = Integer.valueOf(priceInput.getText()),
+                publish_year = Integer.valueOf(publishYearInput.getText());
+            Author author = authorInput.getValue();
+            Publisher publisher = publisherInput.getValue();
+            Shelf shelf = shelfInput.getValue();
+            
+            if(btnSubmit.getText().toLowerCase().equals("tambah")) {
+                String filePath = new Storage().upload(path, fileName, isbn);
+                
+                this.book.store(isbn, title, price, filePath, desc, publish_year, author.getId(), publisher.getId(), shelf.getId());
+                this.showAlert(Alert.AlertType.INFORMATION, "SUKSES", "", "Data buku berhasil ditambahkan");
+            } else {
+                this.showAlert(Alert.AlertType.ERROR, "Ups...", "", "Astagfirullah akhi, fitur ini belum selesai");
+            }
+            
+            this.loadData();
+            formPage.setVisible(false);
+        } catch(Exception e) {
+            this.showAlert(Alert.AlertType.ERROR, "Ups...", "", e.getMessage());
+        }
     }
     
     @FXML
@@ -283,9 +353,11 @@ public class BookController extends Controller implements Initializable {
     
     public void btnChoosePhotoHandle(ActionEvent act) {
         File selectedFile = new Storage().open("image");
-        Image image =  new Image(getClass().getResourceAsStream(selectedFile.toString()));
-        previewPhoto.setImage(image);
-        System.out.println(selectedFile);
+        if(selectedFile != null) {
+            Image image =  new Image(selectedFile.toURI().toString(), previewPhoto.getFitWidth(), previewPhoto.getFitHeight(), true, true);
+            previewPhoto.setImage(image);
+            photoInput.setText(selectedFile.getAbsolutePath());
+        }
     }
     
     
@@ -300,14 +372,16 @@ public class BookController extends Controller implements Initializable {
             while(books.next()) {
                 BookList.add(new Book(
                         books.getInt("id"),
-                        books.getString("isbn"),
-                        books.getString("title"),
                         books.getInt("stock"),
                         books.getInt("price"),
                         books.getInt("publish_year"),
                         books.getInt("author_id"),
                         books.getInt("publisher_id"),
-                        books.getInt("shelf_id")
+                        books.getInt("shelf_id"),
+                        books.getString("isbn"),
+                        books.getString("title"),
+                        books.getString("description"),
+                        books.getString("image")
                 ));
                 tableBuku.setItems(BookList);
             }

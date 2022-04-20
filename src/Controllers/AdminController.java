@@ -164,13 +164,28 @@ public class AdminController extends Controller implements Initializable {
     }
     
     private void inputValidation() throws Exception {
-        String message = " wajib diisi";
-        if(nameInput.getText() == null) {
+        if(nameInput.getText() == null || nameInput.getText().equals("")) {
             throw new Exception("Nama wajib diisi");
         }
         
         if(genderInput.getValue() == null) {
             throw new Exception("Gender wajib diisi");
+        }
+        
+        if(usernameInput.getText() == null || usernameInput.getText().equals("")) {
+            throw new Exception("Username wajib diisi");
+        }
+        
+        if(passwordInput.getText() == null && btnSubmit.getText().toLowerCase().equals("tambah")) {
+            throw new Exception("Password wajib diisi");
+        }
+        
+        if(nomorInput.getText() == null || nomorInput.getText().equals("")) {
+            throw new Exception("Nomor wajib diisi");
+        }
+        
+        if(addressInput.getText() == null || addressInput.getText().equals("")) {
+            throw new Exception("Alamat wajib diisi");
         }
     } 
     
@@ -178,15 +193,15 @@ public class AdminController extends Controller implements Initializable {
     private Button btnSubmit;
     
     public void btnSubmitHandle(ActionEvent act) {
-        String name = nameInput.getText(),
-               username = usernameInput.getText(),
-               password = BCrypt.hashpw(passwordInput.getText(), BCrypt.gensalt()),
-               phone = nomorInput.getText(),
-               gender = (String) genderInput.getValue(),
-               address = addressInput.getText();
-        
         try {
             this.inputValidation();
+            String  name = nameInput.getText(),
+                    username = usernameInput.getText(),
+                    password = passwordInput.getText().equals("") ? passwordInput.getText() : BCrypt.hashpw(passwordInput.getText(), BCrypt.gensalt()),
+                    phone = nomorInput.getText(),
+                    gender = (String) genderInput.getValue(),
+                    address = addressInput.getText();
+            
             if(btnSubmit.getText().toLowerCase().equals("tambah")) {
                 this.admin.store(name, username, password, phone, gender, address);
                 
@@ -194,7 +209,10 @@ public class AdminController extends Controller implements Initializable {
             } else {
                 int id = Integer.valueOf(idInput.getText());
                 ResultSet currentFullData = this.admin.getById(id);
-                String checkPassword = password.equals("") ? currentFullData.getString("password") : password;
+                String checkPassword = null;
+                while(currentFullData.next()) {
+                    checkPassword = password.equals("") ? currentFullData.getString("password") : password;
+                }
                 this.admin.update(id, name, username, checkPassword, phone, gender, address);
                 
                 this.showAlert(Alert.AlertType.INFORMATION, "SUKSES", "", "Data petugas berhasil diubah");
@@ -203,7 +221,7 @@ public class AdminController extends Controller implements Initializable {
             this.loadData();
             formPage.setVisible(false);
         } catch(Exception e) {
-            
+            this.showAlert(Alert.AlertType.ERROR, "Ups...", "", e.getMessage());
         }
     }
     
