@@ -160,7 +160,7 @@ public class AuthorController extends Controller implements Initializable {
         if(nomorInput.getText() == null || nomorInput.getText().equals("")) {
             throw new Exception("Nomor wajib diisi");
         }
-        if(addressInput.getText() == null || nomorInput.getText().equals("")) {
+        if(addressInput.getText() == null || addressInput.getText().equals("")) {
             throw new Exception("Alamat wajib diisi");
         }
         
