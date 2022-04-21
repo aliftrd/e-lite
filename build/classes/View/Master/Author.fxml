@@ -81,9 +81,10 @@
                         <TableView fx:id="tablePengarang" layoutY="40.0" style="-fx-min-width: 906; -fx-min-height: 445;">
                            <columns>
                               <TableColumn fx:id="idCol" editable="false" prefWidth="75.0" text="ID" />
-                              <TableColumn fx:id="nameCol" editable="false" prefWidth="262.0" text="Nama" />
-                              <TableColumn fx:id="phoneCol" editable="false" prefWidth="278.0" sortable="false" text="Nomor" />
-                              <TableColumn fx:id="addressCol" editable="false" prefWidth="289.0" text="Alamat" />
+                              <TableColumn fx:id="nameCol" editable="false" prefWidth="197.0" text="Nama" />
+                              <TableColumn fx:id="phoneCol" editable="false" prefWidth="193.0" sortable="false" text="Nomor" />
+                              <TableColumn fx:id="addressCol" editable="false" prefWidth="181.0" text="Alamat" />
+                              <TableColumn fx:id="createdAtCol" prefWidth="256.0" text="Tanggal Bergabung" />
                            </columns>
                         </TableView>
                         <Pane>

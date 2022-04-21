@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="body" stylesheets="@../../Public/CSS/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="body" stylesheets="@../../Public/CSS/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MemberController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <center>
@@ -78,7 +78,7 @@
                   </Button>
                   <Pane layoutX="48.0" layoutY="85.0">
                      <children>
-                        <TableView fx:id="tablePengarang" layoutY="40.0" style="-fx-min-width: 906; -fx-min-height: 445;">
+                        <TableView fx:id="tableAnggota" layoutY="40.0" style="-fx-min-width: 906; -fx-min-height: 445;">
                            <columns>
                               <TableColumn fx:id="idCol" editable="false" prefWidth="75.0" text="ID" />
                               <TableColumn fx:id="nameCol" editable="false" prefWidth="176.0" text="Nama" />

@@ -35,6 +35,7 @@ import javafx.scene.layout.AnchorPane;
  */
 public class AuthorController extends Controller implements Initializable {
     private Author author = null;
+    private Author selectionData = null;
      
     public AuthorController() {
         author = new Author();
@@ -56,6 +57,8 @@ public class AuthorController extends Controller implements Initializable {
     private TableColumn <Author, String> phoneCol;
     @FXML
     private TableColumn <Author, String> addressCol;
+    @FXML
+    private TableColumn <Author, String> createdAtCol;
 
     
     ObservableList<Author> AuthorList = FXCollections.observableArrayList();
@@ -89,11 +92,11 @@ public class AuthorController extends Controller implements Initializable {
         if(tablePengarang.getSelectionModel().getSelectedItem() == null) {
             this.showAlert(Alert.AlertType.ERROR, "Ups...", "", "Silahkan pilih pengarang terlebih dahulu");
         } else {
-            this.author = (Author) tablePengarang.getSelectionModel().getSelectedItem();
-            this.setForm(this.author);
+            this.selectionData = (Author) tablePengarang.getSelectionModel().getSelectedItem();
+            this.setForm(this.selectionData);
             this.btnSubmit.setText("Simpan");
-            formPage.setVisible(true);
-        }
+            formPage.setVisible(true);      
+        }   
     }
     
     
@@ -105,8 +108,8 @@ public class AuthorController extends Controller implements Initializable {
             this.showAlert(Alert.AlertType.ERROR, "Ups...", "", "Silahkan pilih pengarang terlebih dahulu");
         } else {
             if (showConfirm("Anda yakin akan menghpus data ini?", "Data yang anda hapus tidak akan bisa dikembalikan").get() == ButtonType.OK) {
-                this.author = (Author) tablePengarang.getSelectionModel().getSelectedItem();
-                this.author.delete(this.author.getId());
+                this.selectionData = (Author) tablePengarang.getSelectionModel().getSelectedItem();
+                this.author.delete(this.selectionData.getId());
                 loadData();
             }
         }
@@ -149,16 +152,29 @@ public class AuthorController extends Controller implements Initializable {
         addressInput.setText(null);
     }
     
-    
+        private void inputValidation() throws Exception {
+//        String message = "wajib diisi";
+        if(nameInput.getText() == null || nameInput.getText().equals("")) {
+            throw new Exception("Nama wajib diisi");
+        }
+        if(nomorInput.getText() == null || nomorInput.getText().equals("")) {
+            throw new Exception("Nomor wajib diisi");
+        }
+        if(addressInput.getText() == null || nomorInput.getText().equals("")) {
+            throw new Exception("Alamat wajib diisi");
+        }
+        
+    } 
+        
     @FXML
     private Button btnSubmit;
-    
-    public void btnSubmitHandle(ActionEvent act) {
-        String name = nameInput.getText(),
-               phone = nomorInput.getText(),
-               address = addressInput.getText();
-        
+       public void btnSubmitHandle(ActionEvent act) {
+           
         try {
+            this.inputValidation();
+               String name = nameInput.getText(),
+               phone = nomorInput.getText(),
+               address = addressInput.getText();       
             if(btnSubmit.getText().toLowerCase().equals("tambah")) {
                 this.author.store(name, phone, address);
                 
@@ -169,11 +185,10 @@ public class AuthorController extends Controller implements Initializable {
                 
                 this.showAlert(Alert.AlertType.INFORMATION, "SUKSES", "", "Data pengarang berhasil diubah");
             }
-            
             loadData();
             formPage.setVisible(false);
-        } catch(SQLException e) {
-            this.showAlert(Alert.AlertType.ERROR, "Ups...", "", e.getMessage());
+        } catch(Exception e) {
+         this.showAlert(Alert.AlertType.ERROR, "Upss...", "", e.getMessage());
         }
     }
     
@@ -208,7 +223,7 @@ public class AuthorController extends Controller implements Initializable {
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
         addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
-
+createdAtCol.setCellValueFactory(new PropertyValueFactory<>("created_at"));
     }
     
 }
