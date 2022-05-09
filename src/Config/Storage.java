@@ -54,7 +54,7 @@ public class Storage {
 
             File oldFile = null;
             File newFile = null;
-            String ext = filename.substring(filename.lastIndexOf('.') + 1);
+            String ext = "jpg";
             oldFile = new File(filename);
             newFile = new File(path + "/" + replaceName + "." + ext);
             Files.copy(oldFile.toPath(), newFile.toPath());

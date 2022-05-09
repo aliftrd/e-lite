@@ -37,7 +37,7 @@ abstract public class Model {
     
     public ResultSet getAll() throws SQLException
     {
-        String query = "SELECT * FROM " + this.table;
+        String query = "SELECT * FROM " + this.table + " ORDER BY created_at DESC";
         ResultSet response = this.getQuery(query);
             
         return response;

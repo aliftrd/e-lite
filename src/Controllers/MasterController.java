@@ -49,6 +49,10 @@ public class MasterController extends Controller implements Initializable {
         main.render("../View/Master/Book.fxml");
     }
     
+    public void btnStockHandle(MouseEvent mct) throws IOException {
+        main.render("../View/Master/Stock.fxml");
+    }
+    
     @FXML
     private Label nameBox;
     

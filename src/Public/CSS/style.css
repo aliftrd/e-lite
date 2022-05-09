@@ -32,6 +32,10 @@
     -fx-background-color: #9F9F9F;
 }
 
+.bg-blue {
+    -fx-background-color: #4B7BE5;
+}
+
 .bg-yellow {
     -fx-background-color: #E58A1C;
 }
