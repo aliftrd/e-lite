@@ -133,6 +133,12 @@
     -fx-min-height: 55px;
 }
 
+.search-input {
+    -fx-min-width: 356px;
+    -fx-min-height: 55px;
+    -font-size: 16px;
+}
+
 .btn {
     -fx-min-width: 155px;
     -fx-min-height: 45px;

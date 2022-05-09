@@ -28,6 +28,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -225,14 +226,24 @@ public class AdminController extends Controller implements Initializable {
         }
     }
     
+    @FXML
+    private TextField search;
     
+    public void searchMethod(KeyEvent evt) {
+        loadData();
+    }
     
     
     // Set Tableview
     public void setDataTable() {
         try {
             AdminList.clear();
-            ResultSet admins = this.admin.getAll();
+            ResultSet admins;
+            if(search.getText().equals("") || search.getText() == null) {
+                admins = this.admin.getAll();
+            } else {
+                admins = this.admin.getBySearch(search.getText());
+            }
             
             while(admins.next()) {
                 if(!admins.getString("username").equals(Auth.getUsername())) {

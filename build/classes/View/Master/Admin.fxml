@@ -102,7 +102,7 @@
                         </Pane>
                      </children>
                   </Pane>
-                  <AnchorPane fx:id="formPage" prefHeight="640.0" prefWidth="1002.0">
+                  <AnchorPane fx:id="formPage" prefHeight="640.0" prefWidth="1002.0" visible="false">
                      <styleClass>
                         <String fx:value="body-child" />
                         <String fx:value="bg-ligth" />
@@ -220,6 +220,12 @@
                         </ScrollPane>
                      </children>
                   </AnchorPane>
+                  <TextField fx:id="search" layoutX="48.0" layoutY="15.0" onKeyReleased="#searchMethod" promptText="Cari">
+                     <styleClass>
+                        <String fx:value="input-control" />
+                        <String fx:value="search-input" />
+                     </styleClass>
+                  </TextField>
                </children></AnchorPane>
          </center>
          <left>
