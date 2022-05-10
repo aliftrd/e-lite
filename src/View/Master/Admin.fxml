@@ -220,7 +220,7 @@
                         </ScrollPane>
                      </children>
                   </AnchorPane>
-                  <TextField fx:id="search" layoutX="48.0" layoutY="15.0" onKeyReleased="#searchMethod" promptText="Cari" styleClass="search-input" />
+                  <TextField fx:id="search" layoutX="48.0" layoutY="20.0" onKeyReleased="#searchMethod" promptText="Cari" styleClass="search-input" />
                </children></AnchorPane>
          </center>
          <left>

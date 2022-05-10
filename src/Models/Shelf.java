@@ -29,28 +29,20 @@ public class Shelf extends Model {
         this.setTable(this.table);
     }
 
-        public boolean store(String code,  String location) throws SQLException {
-        String query = "INSERT INTO " + this.table + " (id, code,  location, created_at, updated_at) VALUES (NULL, '" + code + "', '" + location + "', NOW(), NOW())";
+    public boolean store(String code,  String name) throws SQLException {
+        String query = "INSERT INTO " + this.table + " (id, code,  name, created_at, updated_at) VALUES (NULL, '" + code + "', '" + name + "', NOW(), NOW())";
         this.executeQuery(query);
         return true;
     }
     
-    public boolean update(int id, String code, String location) throws SQLException {
-        ResultSet currentFullData = this.getById(id);
+    public boolean update(int id, String code, String name) throws SQLException {
         String query = "UPDATE " + this.table + " SET "
                 + "code = '" + code + "', "
-                + "location = '" + location + "', "
+                + "name = '" + name + "', "
 
                 + "updated_at = NOW() WHERE id = '" + id + "'";
         this.executeQuery(query);
         return true;
-    }
-    
-    public ResultSet getBySearch(String search) throws SQLException {
-        String query = "SELECT * FROM " + this.table + " WHERE id = '" + id + "'";
-        ResultSet response = this.getQuery(query);
-
-        return response;
     }
     
     public int getId() {

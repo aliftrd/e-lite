@@ -310,6 +310,10 @@ public class BookController extends Controller implements Initializable {
         if(priceInput.getText() == null || priceInput.getText().equals("")) {
             throw new Exception("Harga wajib diisi");
         }
+        
+        if(publisherInput.getValue() == null) {
+            throw new Exception("Penerbit wajib diisi");
+        }
     }
     
     @FXML
