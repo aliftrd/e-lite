@@ -6,8 +6,10 @@
 package Config;
 
 import java.io.File;
+import java.nio.file.Files;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import Config.Helper;
 
 /**
  *
@@ -42,5 +44,34 @@ public class Storage {
         }
         
         return fileChooser.showOpenDialog(stage);
+    }
+    
+    public String upload(String path, String filename, String replaceName) {
+        try {
+            if(replaceName.equals("")) {
+                replaceName = new Helper().hashToMD5("File uploaded at " + new Helper().getDate());
+            }
+
+            File oldFile = null;
+            File newFile = null;
+            String ext = filename.substring(filename.lastIndexOf('.') + 1);
+            oldFile = new File(filename);
+            newFile = new File(path + "/" + replaceName + "." + ext);
+            Files.copy(oldFile.toPath(), newFile.toPath());
+            
+            return newFile.getPath().replace("\\", "\\\\");
+        } catch(Exception e) {
+            throw new Error("Terjadi kesalahan mengunggah file.");
+        }
+    }
+    
+    public boolean delete(String path) {
+        File file = new File(path);
+        
+        if(file.exists() && !file.isDirectory()) {
+            file.delete();
+        }
+        
+        return true;
     }
 }

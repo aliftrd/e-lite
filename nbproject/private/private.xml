@@ -4,16 +4,15 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/TUGAS/e-lite/src/Models/Auth.java</file>
-            <file>file:/D:/TUGAS/e-lite/src/Controllers/AdminController.java</file>
             <file>file:/D:/TUGAS/e-lite/src/Models/Book.java</file>
             <file>file:/D:/TUGAS/e-lite/src/Models/Author.java</file>
-            <file>file:/D:/TUGAS/e-lite/src/Models/Member.java</file>
-            <file>file:/D:/TUGAS/e-lite/src/Core/Model.java</file>
+            <file>file:/D:/TUGAS/e-lite/src/Public/Images/book/example.png</file>
+            <file>file:/D:/TUGAS/e-lite/src/Controllers/AdminController.java</file>
+            <file>file:/D:/TUGAS/e-lite/src/Controllers/LoginController.java</file>
             <file>file:/D:/TUGAS/e-lite/src/Models/Admin.java</file>
-            <file>file:/D:/TUGAS/e-lite/src/Models/Publisher.java</file>
+            <file>file:/D:/TUGAS/e-lite/src/Config/Storage.java</file>
             <file>file:/D:/TUGAS/e-lite/src/Controllers/BookController.java</file>
-            <file>file:/D:/TUGAS/e-lite/src/Controllers/MasterController.java</file>
-            <file>file:/D:/TUGAS/e-lite/src/View/Master/Book.fxml</file>
+            <file>file:/D:/TUGAS/e-lite/src/Config/Helper.java</file>
         </group>
     </open-files>
 </project-private>
