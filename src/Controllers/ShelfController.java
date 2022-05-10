@@ -6,7 +6,7 @@
 package Controllers;
 
 import Core.Controller;
-import Models.Author;
+import Models.Shelf;
 import Models.Auth;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -23,9 +23,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -33,12 +33,12 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author acer
  */
-public class AuthorController extends Controller implements Initializable {
-    private Author author = null;
-    private Author selectionData = null;
+public class ShelfController extends Controller implements Initializable {
+    private Shelf shelf = null;
+    private Shelf selectionData = null;
      
-    public AuthorController() {
-        author = new Author();
+    public ShelfController() {
+        shelf = new Shelf();
     }
     
     @FXML
@@ -47,21 +47,21 @@ public class AuthorController extends Controller implements Initializable {
     @FXML
     private AnchorPane formPage;
     
+
     @FXML
-    private TableView tablePengarang;
+    private TableView tableRak;
     @FXML
-    private TableColumn <Author, Integer> idCol;
+    private TableColumn <Shelf, Integer> idCol;
     @FXML
-    private TableColumn <Author, String> nameCol;
+    private TableColumn <Shelf, String> codeCol;
     @FXML
-    private TableColumn <Author, String> phoneCol;
+    private TableColumn <Shelf, String> nameCol;
     @FXML
-    private TableColumn <Author, String> addressCol;
-    @FXML
-    private TableColumn <Author, String> createdAtCol;
+    private TableColumn <Shelf, String> createdAtCol;
+
 
     
-    ObservableList<Author> AuthorList = FXCollections.observableArrayList();
+    ObservableList<Shelf> ShelfList = FXCollections.observableArrayList();
     
     
     /**
@@ -89,10 +89,10 @@ public class AuthorController extends Controller implements Initializable {
     private Button btnEdit;
     
     public void btnEditHandle(ActionEvent act) {
-        if(tablePengarang.getSelectionModel().getSelectedItem() == null) {
-            this.showAlert(Alert.AlertType.ERROR, "Ups...", "", "Silahkan pilih pengarang terlebih dahulu");
+        if(tableRak.getSelectionModel().getSelectedItem() == null) {
+            this.showAlert(Alert.AlertType.ERROR, "Ups...", "", "Silahkan pilih rak terlebih dahulu");
         } else {
-            this.selectionData = (Author) tablePengarang.getSelectionModel().getSelectedItem();
+            this.selectionData = (Shelf) tableRak.getSelectionModel().getSelectedItem();
             this.setForm(this.selectionData);
             this.btnSubmit.setText("Simpan");
             formPage.setVisible(true);      
@@ -104,12 +104,12 @@ public class AuthorController extends Controller implements Initializable {
     private Button btnHapus;
     
     public void btnHapusHandle(ActionEvent act) throws SQLException {
-        if(tablePengarang.getSelectionModel().getSelectedItem() == null) {
-            this.showAlert(Alert.AlertType.ERROR, "Ups...", "", "Silahkan pilih pengarang terlebih dahulu");
+        if(tableRak.getSelectionModel().getSelectedItem() == null) {
+            this.showAlert(Alert.AlertType.ERROR, "Ups...", "", "Silahkan pilih rak terlebih dahulu");
         } else {
-            if (showConfirm("Anda yakin akan menghpus data ini?", "Data yang anda hapus tidak akan bisa dikembalikan").get() == ButtonType.OK) {
-                this.selectionData = (Author) tablePengarang.getSelectionModel().getSelectedItem();
-                this.author.delete(this.selectionData.getId());
+            if (showConfirm("Anda yakin akan menghapus data ini?", "Data yang anda hapus tidak akan bisa dikembalikan").get() == ButtonType.OK) {
+                this.selectionData = (Shelf) tableRak.getSelectionModel().getSelectedItem();
+                this.shelf.delete(this.selectionData.getId());
                 loadData();
             }
         }
@@ -131,37 +131,31 @@ public class AuthorController extends Controller implements Initializable {
     @FXML
     private TextField idInput;
     @FXML
-    private TextField nameInput;
+    private TextField codeInput;
     @FXML
-    private TextField nomorInput;
-    @FXML
-    private TextArea addressInput;    
+    private TextField nameInput; 
     
     
-    private void setForm(Author author) {
-        idInput.setText(String.valueOf(author.getId()));
-        nameInput.setText(author.getName());
-        nomorInput.setText(author.getPhone());
-        addressInput.setText(author.getAddress());
+    private void setForm(Shelf shelf) {
+        idInput.setText(String.valueOf(shelf.getId()));
+        codeInput.setText(shelf.getCode());
+        nameInput.setText(shelf.getName());
     }
     
     private void resetForm() {
         idInput.setText(null);
+        codeInput.setText(null);
         nameInput.setText(null);
-        nomorInput.setText(null);
-        addressInput.setText(null);
+
     }
     
         private void inputValidation() throws Exception {
 //        String message = "wajib diisi";
+        if(codeInput.getText() == null || codeInput.getText().equals("")) {
+            throw new Exception("Kode wajib diisi");
+        }
         if(nameInput.getText() == null || nameInput.getText().equals("")) {
             throw new Exception("Nama wajib diisi");
-        }
-        if(nomorInput.getText() == null || nomorInput.getText().equals("")) {
-            throw new Exception("Nomor wajib diisi");
-        }
-        if(addressInput.getText() == null || addressInput.getText().equals("")) {
-            throw new Exception("Alamat wajib diisi");
         }
         
     } 
@@ -172,18 +166,17 @@ public class AuthorController extends Controller implements Initializable {
            
         try {
             this.inputValidation();
-               String name = nameInput.getText(),
-               phone = nomorInput.getText(),
-               address = addressInput.getText();       
+               String code = codeInput.getText(),
+               name = nameInput.getText();     
             if(btnSubmit.getText().toLowerCase().equals("tambah")) {
-                this.author.store(name, phone, address);
+                this.shelf.store(code, name);
                 
-                this.showAlert(Alert.AlertType.INFORMATION, "SUKSES", "", "Data pengarang berhasil ditambahkan");
+                this.showAlert(Alert.AlertType.INFORMATION, "SUKSES", "", "Data rak berhasil ditambahkan");
             } else {
                 int id = Integer.valueOf(idInput.getText());
-                this.author.update(id, name, phone, address);
+                this.shelf.update(id, code, name);
                 
-                this.showAlert(Alert.AlertType.INFORMATION, "SUKSES", "", "Data pengarang berhasil diubah");
+                this.showAlert(Alert.AlertType.INFORMATION, "SUKSES", "", "Data rak berhasil diubah");
             }
             loadData();
             formPage.setVisible(false);
@@ -192,23 +185,35 @@ public class AuthorController extends Controller implements Initializable {
         }
     }
     
+       
+    @FXML
+    private TextField searchRak;  
+        public void nyoba (KeyEvent evt){
+            loadData();
+        }
+       
+       
+       
     
 //       Set Tableview
     public void setDataTable() {
         try {
-           AuthorList.clear();
+           ShelfList.clear();
+           ResultSet shelves;
+           if(searchRak.getText() == null || searchRak.getText().equals("")){
+               shelves = this.shelf.getAll();
+           }else{
+               shelves = this.shelf.getBySearch(searchRak.getText());
+           }
            
-            ResultSet authors = this.author.getAll();
-            
-            while(authors.next()) {
-                   AuthorList.add(new Author(
-                        authors.getInt("id"),
-                        authors.getString("name"),
-                        authors.getString("phone"),
-                        authors.getString("address"),
-                        authors.getTimestamp("created_at").toString()
+            while(shelves.next()) {
+                   ShelfList.add(new Shelf(
+                        shelves.getInt("id"),
+                        shelves.getString("code"),
+                        shelves.getString("name"),
+                        shelves.getTimestamp("created_at").toString()
                    ));
-                   tablePengarang.setItems(AuthorList);
+                   tableRak.setItems(ShelfList);
                 }
             
         } catch (Exception e) {
@@ -220,10 +225,9 @@ public class AuthorController extends Controller implements Initializable {
         setDataTable();
         
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        codeCol.setCellValueFactory(new PropertyValueFactory<>("code"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
-createdAtCol.setCellValueFactory(new PropertyValueFactory<>("created_at"));
+        createdAtCol.setCellValueFactory(new PropertyValueFactory<>("created_at"));
     }
     
 }

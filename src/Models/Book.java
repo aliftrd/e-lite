@@ -41,6 +41,16 @@ public class Book extends Model {
         this.executeQuery(query);
         return true;
     }
+    
+    public boolean update(int id, String isbn, String title, int price, String image, String description, int publish_year, int author_id, int publisher_id, int shelf_id) throws SQLException {
+        String query = "UPDATE " + this.table + " SET "
+                + "isbn = '" + isbn + "', "
+                + "title = '" + title + "', "
+                + "price = " + price + ", "
+                + "updated_at = NOW() WHERE id = '" + id + "'";
+        this.executeQuery(query);
+        return true;
+    }
 
     public void setId(int id) {
         this.id = id;

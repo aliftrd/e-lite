@@ -30,7 +30,7 @@ public class MasterController extends Controller implements Initializable {
     }
     
     public void btnPengarangHandle(MouseEvent mct) throws IOException {
-        main.render("../View/Master/Admin.fxml");
+        main.render("../View/Master/Author.fxml");
     }
     
     public void btnPenerbitHandle(MouseEvent mct) throws IOException {
@@ -38,15 +38,19 @@ public class MasterController extends Controller implements Initializable {
     }
     
     public void btnAnggotaHandle(MouseEvent mct) throws IOException {
-        main.render("../View/Master/Admin.fxml");
+        main.render("../View/Master/Member.fxml");
     }
     
     public void btnRakHandle(MouseEvent mct) throws IOException {
-        main.render("../View/Master/Admin.fxml");
+        main.render("../View/Master/Shelf.fxml");
     }
     
     public void btnBukuHandle(MouseEvent mct) throws IOException {
         main.render("../View/Master/Book.fxml");
+    }
+    
+    public void btnStockHandle(MouseEvent mct) throws IOException {
+        main.render("../View/Master/Stock.fxml");
     }
     
     @FXML

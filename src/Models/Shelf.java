@@ -6,6 +6,8 @@
 package Models;
 
 import Core.Model;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -14,12 +16,12 @@ import Core.Model;
 public class Shelf extends Model {
     protected String table = "shelves";
     int id;
-    String code, location, created_at;
+    String code, name, created_at;
 
-    public Shelf(int id, String code, String location, String created_at) {
+    public Shelf(int id, String code, String name, String created_at) {
         this.id = id;
         this.code = code;
-        this.location = location;
+        this.name = name;
         this.created_at = created_at;
     }
 
@@ -27,6 +29,30 @@ public class Shelf extends Model {
         this.setTable(this.table);
     }
 
+        public boolean store(String code,  String location) throws SQLException {
+        String query = "INSERT INTO " + this.table + " (id, code,  location, created_at, updated_at) VALUES (NULL, '" + code + "', '" + location + "', NOW(), NOW())";
+        this.executeQuery(query);
+        return true;
+    }
+    
+    public boolean update(int id, String code, String location) throws SQLException {
+        ResultSet currentFullData = this.getById(id);
+        String query = "UPDATE " + this.table + " SET "
+                + "code = '" + code + "', "
+                + "location = '" + location + "', "
+
+                + "updated_at = NOW() WHERE id = '" + id + "'";
+        this.executeQuery(query);
+        return true;
+    }
+    
+    public ResultSet getBySearch(String search) throws SQLException {
+        String query = "SELECT * FROM " + this.table + " WHERE id = '" + id + "'";
+        ResultSet response = this.getQuery(query);
+
+        return response;
+    }
+    
     public int getId() {
         return id;
     }
@@ -35,8 +61,8 @@ public class Shelf extends Model {
         return code;
     }
 
-    public String getLocation() {
-        return location;
+    public String getName() {
+        return name;
     }
 
     public String getCreated_at() {
@@ -51,8 +77,8 @@ public class Shelf extends Model {
         this.code = code;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setCreated_at(String created_at) {

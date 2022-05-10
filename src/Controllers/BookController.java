@@ -7,7 +7,6 @@ package Controllers;
 
 import Config.Storage;
 import Core.Controller;
-import Models.Admin;
 import Models.Auth;
 import Models.Book;
 import Models.Author;
@@ -88,7 +87,7 @@ public class BookController extends Controller implements Initializable {
         loadData();
     }
     
-    public void initList() {
+    private void initList() {
         try { 
             ResultSet authors, publishers, shelves;
             // Author
@@ -103,7 +102,6 @@ public class BookController extends Controller implements Initializable {
                     return authorInput.getItems().stream().filter(ap -> 
                         ap.getName().equals(string)).findFirst().orElse(null);
                 }
-                
             });
             
             authors = new Author().getAll();
@@ -151,13 +149,13 @@ public class BookController extends Controller implements Initializable {
             shelfInput.setConverter(new StringConverter<Shelf>() {
                 @Override
                 public String toString(Shelf object) {
-                    return object.getLocation();
+                    return object.getName();
                 }
 
                 @Override
                 public Shelf fromString(String string) {
                     return shelfInput.getItems().stream().filter(ap -> 
-                        ap.getLocation().equals(string)).findFirst().orElse(null);
+                        ap.getName().equals(string)).findFirst().orElse(null);
                 }
             });
             
@@ -167,7 +165,7 @@ public class BookController extends Controller implements Initializable {
                 shelvesList.add(new Shelf(
                         shelves.getInt("id"),
                         shelves.getString("code"),
-                        shelves.getString("location"),
+                        shelves.getString("name"),
                         shelves.getString("created_at")
                 ));
                 
@@ -272,7 +270,7 @@ public class BookController extends Controller implements Initializable {
         if(book.getImage() == null || book.getImage().equals("")) {
             image = new Image(getClass().getResource("../Public/Images/book/example.png").toString());
         } else {
-            image = new Image(new File(book.getImage()).toURI().toString());
+            image = new Image(new File(book.getImage()).toURI().toString(), previewPhoto.getFitWidth(), previewPhoto.getFitHeight(), false, false);
         }
         previewPhoto.setImage(image);
         photoInput.setText(null);
@@ -300,7 +298,7 @@ public class BookController extends Controller implements Initializable {
         formPage.setVisible(false);
     }
     
-    public void inputValidation() throws Exception {
+    private void inputValidation() throws Exception {
         if(isbnInput.getText() == null || isbnInput.getText().equals("")) {
             throw new Exception("ISBN wajib diisi");
         }
@@ -312,7 +310,6 @@ public class BookController extends Controller implements Initializable {
         if(priceInput.getText() == null || priceInput.getText().equals("")) {
             throw new Exception("Harga wajib diisi");
         }
-        
     }
     
     @FXML
@@ -338,7 +335,16 @@ public class BookController extends Controller implements Initializable {
                 this.book.store(isbn, title, price, filePath, desc, publish_year, author.getId(), publisher.getId(), shelf.getId());
                 this.showAlert(Alert.AlertType.INFORMATION, "SUKSES", "", "Data buku berhasil ditambahkan");
             } else {
-                this.showAlert(Alert.AlertType.ERROR, "Ups...", "", "Astagfirullah akhi, fitur ini belum selesai");
+                int id = this.selectionData.getId();
+                String filePath = "";
+                if(fileName != null) {
+                    if(new Storage().delete(this.selectionData.getImage())) {
+                        filePath = new Storage().upload(path, fileName, isbn);
+                    }
+                }
+                
+                this.book.update(id, isbn, title, price, filePath, desc, publish_year, author.getId(), publisher.getId(), shelf.getId());
+                this.showAlert(Alert.AlertType.INFORMATION, "SUKSES", "", "Data buku berhasil diubah");
             }
             
             this.loadData();
@@ -354,7 +360,7 @@ public class BookController extends Controller implements Initializable {
     public void btnChoosePhotoHandle(ActionEvent act) {
         File selectedFile = new Storage().open("image");
         if(selectedFile != null) {
-            Image image =  new Image(selectedFile.toURI().toString(), previewPhoto.getFitWidth(), previewPhoto.getFitHeight(), true, true);
+            Image image =  new Image(selectedFile.toURI().toString(), previewPhoto.getFitWidth(), previewPhoto.getFitHeight(), false, false);
             previewPhoto.setImage(image);
             photoInput.setText(selectedFile.getAbsolutePath());
         }

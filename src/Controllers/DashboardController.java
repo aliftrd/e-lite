@@ -8,10 +8,14 @@ package Controllers;
 import Core.Controller;
 import Models.Auth;
 import java.net.URL;
+import Models.Book;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 
 /**
  * FXML Controller class

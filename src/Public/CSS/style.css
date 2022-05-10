@@ -32,6 +32,10 @@
     -fx-background-color: #9F9F9F;
 }
 
+.bg-blue {
+    -fx-background-color: #4B7BE5;
+}
+
 .bg-yellow {
     -fx-background-color: #E58A1C;
 }
@@ -127,6 +131,14 @@
 .master-input-col-2 {
     -fx-min-width: 430px;
     -fx-min-height: 55px;
+}
+
+.search-input {
+    -fx-background-radius: 15px;
+    -fx-background-color: #FFF;
+    -fx-min-width: 356px;
+    -fx-min-height: 55px;
+    -fx-font-size: 16px;
 }
 
 .btn {
