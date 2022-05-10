@@ -6,6 +6,8 @@
 package Models;
 
 import Core.Model;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -27,6 +29,30 @@ public class Shelf extends Model {
         this.setTable(this.table);
     }
 
+        public boolean store(String code,  String location) throws SQLException {
+        String query = "INSERT INTO " + this.table + " (id, code,  location, created_at, updated_at) VALUES (NULL, '" + code + "', '" + location + "', NOW(), NOW())";
+        this.executeQuery(query);
+        return true;
+    }
+    
+    public boolean update(int id, String code, String location) throws SQLException {
+        ResultSet currentFullData = this.getById(id);
+        String query = "UPDATE " + this.table + " SET "
+                + "code = '" + code + "', "
+                + "location = '" + location + "', "
+
+                + "updated_at = NOW() WHERE id = '" + id + "'";
+        this.executeQuery(query);
+        return true;
+    }
+    
+    public ResultSet getBySearch(String search) throws SQLException {
+        String query = "SELECT * FROM " + this.table + " WHERE id = '" + id + "'";
+        ResultSet response = this.getQuery(query);
+
+        return response;
+    }
+    
     public int getId() {
         return id;
     }
