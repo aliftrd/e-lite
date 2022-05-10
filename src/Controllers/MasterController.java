@@ -42,7 +42,7 @@ public class MasterController extends Controller implements Initializable {
     }
     
     public void btnRakHandle(MouseEvent mct) throws IOException {
-        main.render("../View/Master/Admin.fxml");
+        main.render("../View/Master/Shelf.fxml");
     }
     
     public void btnBukuHandle(MouseEvent mct) throws IOException {
