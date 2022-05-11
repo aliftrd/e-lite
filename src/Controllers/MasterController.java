@@ -34,7 +34,7 @@ public class MasterController extends Controller implements Initializable {
     }
     
     public void btnPenerbitHandle(MouseEvent mct) throws IOException {
-        main.render("../View/Master/Admin.fxml");
+        main.render("../View/Master/Publisher.fxml");
     }
     
     public void btnAnggotaHandle(MouseEvent mct) throws IOException {

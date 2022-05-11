@@ -6,6 +6,7 @@
 package Models;
 
 import Core.Model;
+import java.sql.SQLException;
 
 /**
  *
@@ -27,6 +28,22 @@ public class Publisher extends Model {
     
     public Publisher() {
         this.setTable(this.table);
+    }
+    
+    public boolean store(String name, String phone, String address) throws SQLException {
+        String query = "INSERT INTO " + this.table + " (id, name, phone, address, created_at, updated_at) VALUES (NULL, '" + name + "', '" + phone + "', '" + address + "', NOW(), NOW())";
+        this.executeQuery(query);
+        return true;
+    }
+    
+    public boolean update(int id, String name, String phone, String address) throws SQLException {
+        String query = "UPDATE " + this.table + " SET "
+                + "name = '" + name + "', "
+                + "phone = '" + phone + "', "
+                + "address = '" + address + "', "
+                + "updated_at = NOW() WHERE id = '" + id + "'";
+        this.executeQuery(query);
+        return true;
     }
 
     public int getId() {
@@ -68,6 +85,5 @@ public class Publisher extends Model {
     public void setCreated_at(String created_at) {
         this.created_at = created_at;
     }
-    
-    
+      
 }
