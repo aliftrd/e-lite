@@ -187,8 +187,8 @@ public class ShelfController extends Controller implements Initializable {
     
        
     @FXML
-    private TextField searchRak;  
-        public void nyoba (KeyEvent evt){
+    private TextField search;  
+        public void searchMethod (KeyEvent evt){
             loadData();
         }
        
@@ -200,10 +200,10 @@ public class ShelfController extends Controller implements Initializable {
         try {
            ShelfList.clear();
            ResultSet shelves;
-           if(searchRak.getText() == null || searchRak.getText().equals("")){
-               shelves = this.shelf.getAll();
+           if(search.getText() == null || search.getText().equals("")){
+                shelves = this.shelf.getAll();
            }else{
-               shelves = this.shelf.getBySearch(searchRak.getText());
+                shelves = this.shelf.getBySearch(search.getText());
            }
            
             while(shelves.next()) {

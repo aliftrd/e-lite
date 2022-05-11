@@ -29,6 +29,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -201,11 +202,23 @@ public class MemberController extends Controller implements Initializable {
         
     }
     
+    
+        @FXML
+    private TextField search;  
+        public void searchMethod (KeyEvent evt){
+            loadData();
+        }
+        
 //    Set TableView
     public void setDataTable(){
         try{
-            MemberList.clear();
-            ResultSet members = this.member.getAll();
+           MemberList.clear();
+           ResultSet members;
+           if(search.getText() == null || search.getText().equals("")){
+                members = this.member.getAll();
+           }else{
+                members = this.member.getBySearch(search.getText());
+           }
 
             while(members.next()){
                 MemberList.add(new Member(
