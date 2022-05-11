@@ -26,6 +26,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -192,13 +193,23 @@ public class AuthorController extends Controller implements Initializable {
         }
     }
     
+       
+    @FXML
+    private TextField search;  
+        public void searchMethod (KeyEvent evt){
+            loadData();
+        }
     
 //       Set Tableview
     public void setDataTable() {
         try {
            AuthorList.clear();
-           
-            ResultSet authors = this.author.getAll();
+           ResultSet authors;
+           if(search.getText() == null || search.getText().equals("")){
+                authors = this.author.getAll();
+           }else{
+                authors = this.author.getBySearch(search.getText());
+           }
             
             while(authors.next()) {
                    AuthorList.add(new Author(

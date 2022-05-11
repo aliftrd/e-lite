@@ -16,6 +16,7 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
+                  <TextField fx:id="search" layoutX="48.0" layoutY="20.0" onKeyReleased="#searchMethod" promptText="Cari" styleClass="search-input" />
                   <Button fx:id="btnTambah" graphicTextGap="19.0" layoutX="449.0" layoutY="20.0" mnemonicParsing="false" onAction="#btnTambahHandle" text="Tambah">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
@@ -102,7 +103,7 @@
                         </Pane>
                      </children>
                   </Pane>
-                  <AnchorPane fx:id="formPage" prefHeight="640.0" prefWidth="1002.0">
+                  <AnchorPane fx:id="formPage" prefHeight="640.0" prefWidth="1002.0" visible="false">
                      <children>
                         <Button fx:id="btnKembaliFormPage" graphicTextGap="19.0" layoutX="30.0" layoutY="20.0" mnemonicParsing="false" onAction="#btnKembaliFormPageHandle" text="Kembali">
                            <graphic>

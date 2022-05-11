@@ -16,7 +16,7 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <TextField fx:id="searchRak" layoutX="48.0" layoutY="20.0" onKeyReleased="#nyoba" promptText="Cari" styleClass="search-input" />
+                  <TextField fx:id="search" layoutX="48.0" layoutY="20.0" onKeyReleased="#searchMethod" promptText="Cari" styleClass="search-input" />
                   <Button fx:id="btnTambah" graphicTextGap="19.0" layoutX="449.0" layoutY="20.0" mnemonicParsing="false" onAction="#btnTambahHandle" text="Tambah">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
