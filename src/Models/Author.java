@@ -15,8 +15,8 @@ import java.sql.SQLException;
 public class Author extends Model {
     protected String table = "authors";
     
-    int id;
-    String name, phone, address, created_at;
+    protected int id;
+    protected String name, phone, address, created_at;
     
     public Author(int id, String name, String phone, String address, String created_at){
         this.id = id;

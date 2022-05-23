@@ -6,6 +6,7 @@
 package Models;
 
 import Core.Model;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -15,10 +16,10 @@ import java.sql.SQLException;
 public class Book extends Model {
     protected String table = "books";
     
-    int id, stock, price, publish_year, author_id, publisher_id, shelf_id;
-    String isbn, title, description, image, created_at;
+    protected int id, stock, price, publish_year, author_id, publisher_id, shelf_id;
+    protected String isbn, title, name, description, image, created_at;
 
-    public Book(int id, int stock, int price, int publish_year, int author_id, int publisher_id, int shelf_id, String isbn, String title, String description, String image) {
+    public Book(int id, int stock, int price, int publish_year, int author_id, int publisher_id, int shelf_id, String isbn, String title, String name, String description, String image) {
         this.id = id;
         this.stock = stock;
         this.price = price;
@@ -28,12 +29,46 @@ public class Book extends Model {
         this.shelf_id = shelf_id;
         this.isbn = isbn;
         this.title = title;
+        this.name = name;
         this.description = description;
         this.image = image;
     }
     
     public Book() {
         this.setTable(this.table);
+    }
+    
+    @Override
+    public ResultSet getAll() throws SQLException {
+        Author author = new Author();
+        String query = "SELECT " + this.table + ".*, " + author.getTable() + ".name FROM " + this.table + " JOIN " + author.getTable() + " ON " + author.getTable() + ".id = " + this.table + ".author_id";
+        ResultSet response = this.getQuery(query);
+        return response;
+    }
+    
+    @Override
+    public ResultSet getBySearch(String search) throws SQLException {
+        Author author = new Author();
+        String query = "SELECT " + this.table + ".*, " + author.getTable() + ".name FROM " + this.table + " JOIN " + author.getTable() + " ON " + author.getTable() + ".id = " + this.table + ".author_id WHERE CONCAT(" + this.table + "." + this.getTableColumn() + ", name) LIKE '%" + search + "%'";
+        ResultSet response = this.getQuery(query);
+
+        return response;
+    }
+    
+    @Override
+    public ResultSet getCount() throws SQLException {
+        String query = "SELECT SUM(stock) as total_stock, COUNT(*) as total_book FROM " + this.table;
+        ResultSet response = this.getQuery(query);
+
+        return response;
+    }
+    
+    public ResultSet getByISBN(String isbn) throws SQLException {
+        Author author = new Author();
+        String query = "SELECT " + this.table + ".*, " + author.getTable() + ".name FROM " + this.table + " JOIN " + author.getTable() + " ON " + author.getTable() + ".id = " + this.table + ".author_id WHERE books.isbn = '" + isbn + "'";
+        ResultSet response = this.getQuery(query);
+
+        return response;
     }
     
     public boolean store(String isbn, String title, int price, String image, String description, int publish_year, int author_id, int publisher_id, int shelf_id) throws SQLException {
@@ -82,6 +117,10 @@ public class Book extends Model {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setTitle(String title) {
@@ -134,6 +173,10 @@ public class Book extends Model {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getDescription() {

@@ -13,8 +13,8 @@ import Core.Model;
  */
 public class Auth extends Model {
     protected String table = "admins";
-    private static int id;
-    private static String name, username;
+    protected static int id;
+    protected static String name, username;
     
     public Auth() {
         this.setTable(this.table);

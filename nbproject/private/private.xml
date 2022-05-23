@@ -3,18 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Project/e-lite/src/Controllers/MemberController.java</file>
-            <file>file:/D:/Project/e-lite/src/Models/Admin.java</file>
-            <file>file:/D:/Project/e-lite/src/Controllers/MasterController.java</file>
-            <file>file:/D:/Project/e-lite/src/Core/Controller.java</file>
-            <file>file:/D:/Project/e-lite/src/Controllers/BookController.java</file>
-            <file>file:/D:/Project/e-lite/src/Models/Shelf.java</file>
-            <file>file:/D:/Project/e-lite/src/Controllers/DashboardController.java</file>
-            <file>file:/D:/Project/e-lite/src/Core/Model.java</file>
-            <file>file:/D:/Project/e-lite/src/Controllers/AdminController.java</file>
-            <file>file:/D:/Project/e-lite/src/Controllers/ShelfController.java</file>
-            <file>file:/D:/Project/e-lite/src/Controllers/AuthorController.java</file>
-            <file>file:/D:/Project/e-lite/src/Controllers/StockController.java</file>
+            <file>file:/D:/TUGAS/e-lite/src/Controllers/BookController.java</file>
+            <file>file:/D:/TUGAS/e-lite/src/Controllers/PublisherController.java</file>
+            <file>file:/D:/TUGAS/e-lite/src/Controllers/MasterController.java</file>
+            <file>file:/D:/TUGAS/e-lite/src/Controllers/MemberController.java</file>
         </group>
     </open-files>
 </project-private>

@@ -15,8 +15,8 @@ import java.sql.SQLException;
  */
 public class Shelf extends Model {
     protected String table = "shelves";
-    int id;
-    String code, name, created_at;
+    protected int id;
+    protected String code, name, created_at;
 
     public Shelf(int id, String code, String name, String created_at) {
         this.id = id;

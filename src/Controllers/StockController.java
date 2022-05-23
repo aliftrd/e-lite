@@ -10,6 +10,7 @@ import Core.Controller;
 import Models.Auth;
 import Models.Book;
 import Models.Stock;
+import Utils.InputNumber;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -40,52 +41,54 @@ import javafx.util.StringConverter;
  * @author Illuminate
  */
 public class StockController extends Controller implements Initializable {
+
     private Stock stock = null;
     private Stock selectionData = null;
     private final ObservableList<String> typeList = FXCollections.observableArrayList("Masuk", "Keluar");
     private final ObservableList<Book> bookList = FXCollections.observableArrayList();
-    
+
     public StockController() {
         stock = new Stock();
     }
-    
+
     @FXML
     private Label nameBox;
-    
+
     @FXML
     private AnchorPane formPage;
-    
+
     @FXML
     private TableView tableStock;
     @FXML
-    private TableColumn <Stock, Integer> idCol;
+    private TableColumn<Stock, Integer> idCol;
     @FXML
-    private TableColumn <Stock, String> bookCol;
+    private TableColumn<Stock, String> bookCol;
     @FXML
-    private TableColumn <Stock, String> typeCol;
+    private TableColumn<Stock, String> typeCol;
     @FXML
-    private TableColumn <Stock, String> amountCol;
+    private TableColumn<Stock, String> amountCol;
     @FXML
-    private TableColumn <Stock, Integer> createdAtCol;
-    
+    private TableColumn<Stock, Integer> createdAtCol;
+
     ObservableList<Stock> StockList = FXCollections.observableArrayList();
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        nameBox.setText(new Auth().getName().toUpperCase());
+        nameBox.setText(Auth.getName().toUpperCase());
         formPage.setVisible(false);
         this.initList();
         loadData();
+        new InputNumber().getInputNumber(amountInput);
     }
-    
+
     private void initList() {
         try {
             typeInput.setItems(typeList);
             ResultSet books;
-            
+
             bookInput.setConverter(new StringConverter<Book>() {
                 @Override
                 public String toString(Book object) {
@@ -94,14 +97,14 @@ public class StockController extends Controller implements Initializable {
 
                 @Override
                 public Book fromString(String string) {
-                    return bookInput.getItems().stream().filter(ap -> 
-                    ap.getTitle().equals(string)).findFirst().orElse(null);
+                    return bookInput.getItems().stream().filter(ap
+                            -> ap.getTitle().equals(string)).findFirst().orElse(null);
                 }
             });
-            
+
             books = new Book().getAll();
-            
-            while(books.next()) {
+
+            while (books.next()) {
                 bookList.add(new Book(
                         books.getInt("id"),
                         books.getInt("stock"),
@@ -112,30 +115,31 @@ public class StockController extends Controller implements Initializable {
                         books.getInt("shelf_id"),
                         books.getString("isbn"),
                         books.getString("title"),
+                        books.getString("name"),
                         books.getString("description"),
                         books.getString("image")
                 ));
-                
+
                 bookInput.setItems(bookList);
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             this.showAlert(Alert.AlertType.ERROR, "Ups...", "", e.getMessage());
         }
     }
-    
+
     @FXML
     private Button btnTambah;
-    
+
     public void btnTambahHandle(ActionEvent act) {
         resetForm();
         formPage.setVisible(true);
     }
-    
+
     @FXML
     private Button btnDetail;
-    
+
     public void btnDetailHandle(ActionEvent act) {
-        if(tableStock.getSelectionModel().getSelectedItem() == null) {
+        if (tableStock.getSelectionModel().getSelectedItem() == null) {
             this.showAlert(Alert.AlertType.ERROR, "Ups...", "", "Silahkan pilih stock terlebih dahulu");
         } else {
             this.selectionData = (Stock) tableStock.getSelectionModel().getSelectedItem();
@@ -144,35 +148,35 @@ public class StockController extends Controller implements Initializable {
             formPage.setVisible(true);
         }
     }
-    
+
     public void setDetailOff() {
         amountInput.setEditable(false);
         detailInput.setEditable(false);
         btnSubmit.setVisible(false);
     }
-    
+
     public void setDetailOn() {
         amountInput.setEditable(true);
         detailInput.setEditable(true);
         btnSubmit.setVisible(true);
     }
-    
+
     @FXML
     private Button btnHapus;
-    
+
     public void btnHapusHandle(ActionEvent act) {
-        if(tableStock.getSelectionModel().getSelectedItem() == null) {
+        if (tableStock.getSelectionModel().getSelectedItem() == null) {
             this.showAlert(Alert.AlertType.ERROR, "Ups...", "", "Silahkan pilih stock terlebih dahulu");
         } else {
             if (showConfirm("Anda yakin akan menghpus data ini?", "Data yang anda hapus tidak akan bisa dikembalikan").get() == ButtonType.OK) {
                 this.selectionData = (Stock) tableStock.getSelectionModel().getSelectedItem();
-                
+
                 Book book = new Book();
                 try {
                     ResultSet resultBook = book.getById(selectionData.getBook_id());
-                    if(resultBook.next()) {
+                    if (resultBook.next()) {
                         int bookStock = resultBook.getInt("stock");
-                        if(bookStock < selectionData.getAmount()) {
+                        if (bookStock < selectionData.getAmount()) {
                             this.showAlert(Alert.AlertType.ERROR, "Ups...", "", "Stok melebihi batas");
                         } else {
                             String query;
@@ -183,7 +187,7 @@ public class StockController extends Controller implements Initializable {
                             try {
                                 try {
                                     conn.setAutoCommit(false);
-                                    if(selectionData.getType().equals("Masuk")) {
+                                    if (selectionData.getType().equals("Masuk")) {
                                         query = "UPDATE " + book.getTable() + " SET stock = stock - " + this.selectionData.getAmount() + ", updated_at = NOW() WHERE id =" + resultBook.getInt("id");
                                     } else {
                                         query = "UPDATE " + book.getTable() + " SET stock = stock + " + this.selectionData.getAmount() + ", updated_at = NOW() WHERE id = " + resultBook.getInt("id");
@@ -196,31 +200,31 @@ public class StockController extends Controller implements Initializable {
                                     conn.commit();
                                     this.showAlert(Alert.AlertType.INFORMATION, "SUKSES", "", "Stok berhasil dihapus");
                                     loadData();
-                                } catch(Exception e) {
+                                } catch (Exception e) {
                                     conn.rollback();
                                     System.out.println(e.getMessage());
                                 }
-                            } catch(Exception e) {
+                            } catch (Exception e) {
                                 this.showAlert(Alert.AlertType.ERROR, "Ups...", "", "Terjadi kesalahan koneksi");
                             }
                         }
                     }
-                } catch(Exception e) {
+                } catch (Exception e) {
                     this.showAlert(Alert.AlertType.ERROR, "Ups...", "", "Terjadi kesalahan : " + e.getMessage());
                 }
             }
         }
     }
-    
+
     @FXML
     private Button btnKembaliFormPage;
-    
+
     public void btnKembaliFormPageHandle(ActionEvent act) {
         setDetailOn();
         resetForm();
         formPage.setVisible(false);
     }
-    
+
     @FXML
     private TextField idInput;
     @FXML
@@ -231,11 +235,11 @@ public class StockController extends Controller implements Initializable {
     private TextField amountInput;
     @FXML
     private TextArea detailInput;
-    
+
     public void setForm(Stock stock) {
         idInput.setText(String.valueOf(stock.getId()));
         bookList.filtered(book -> {
-            if(book.getId() == stock.getBook_id()) {
+            if (book.getId() == stock.getBook_id()) {
                 bookInput.getSelectionModel().select(book);
             }
             return true;
@@ -244,7 +248,7 @@ public class StockController extends Controller implements Initializable {
         amountInput.setText(String.valueOf(stock.getAmount()));
         detailInput.setText(stock.getDetail());
     }
-    
+
     public void resetForm() {
         idInput.setText(null);
         bookInput.setValue(null);
@@ -252,37 +256,28 @@ public class StockController extends Controller implements Initializable {
         amountInput.setText(null);
         detailInput.setText(null);
     }
-    
+
     private void inputValidation() throws Exception {
-        if(bookInput.getValue() == null || bookInput.getValue().equals("Pilih")) {
-            throw new Exception("Buku wajib diisi");
-        }
-        
-        if(typeInput.getValue() == null || typeInput.getValue().equals("Pilih")) {
-            throw new Exception("Tipe wajib diisi");
-        }
-        
-        if(amountInput.getText() == null || amountInput.getText().equals("")) {
-            throw new Exception("Jumlah wajib diisi");
-        }
-        
-        if(detailInput.getText() == null || detailInput.getText().equals("")) {
-            throw new Exception("Detail wajib diisi");
+        if ((bookInput.getValue() == null || bookInput.getValue().equals("Pilih"))
+                || (typeInput.getValue() == null || typeInput.getValue().equals("Pilih"))
+                || (amountInput.getText() == null || amountInput.getText().equals(""))
+                || (detailInput.getText() == null || detailInput.getText().equals(""))) {
+            throw new Exception("Data wajib diisi");
         }
     }
-    
+
     @FXML
     private Button btnSubmit;
-    
+
     public void btnSubmitHandle(ActionEvent act) {
         try {
             this.inputValidation();
             String type = (String) typeInput.getValue(),
-                   detail = detailInput.getText();
+                    detail = detailInput.getText();
             int amount = Integer.valueOf(amountInput.getText());
             Book book = bookInput.getValue();
-            
-            if(book.getStock() < 1 && type.equals("Keluar")) {
+
+            if (book.getStock() < 1 && type.equals("Keluar")) {
                 throw new Exception("Stok buku masih kosong");
             } else {
                 Connection conn = Database.GetConnection();
@@ -294,7 +289,7 @@ public class StockController extends Controller implements Initializable {
                     ps = conn.prepareStatement(query);
                     ps.execute();
 
-                    if(type.equals("Masuk")) {
+                    if (type.equals("Masuk")) {
                         query = "UPDATE " + new Book().getTable() + " SET stock = stock + " + amount + ", updated_at = NOW() WHERE id = " + book.getId();
                     } else {
                         query = "UPDATE " + new Book().getTable() + " SET stock = stock - " + amount + ", updated_at = NOW() WHERE id = " + book.getId();
@@ -307,23 +302,24 @@ public class StockController extends Controller implements Initializable {
                     this.showAlert(Alert.AlertType.INFORMATION, "SUKSES", "", "Stok berhasil ditambahkan");
                     loadData();
                     formPage.setVisible(false);
-                } catch(Exception e) {
+                } catch (Exception e) {
                     conn.rollback();
-                    System.out.println(e.getMessage());
+
+                    throw new Exception(e.getMessage());
                 }
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             this.showAlert(Alert.AlertType.ERROR, "Ups...", "", e.getMessage());
         }
     }
-    
+
     // Set Datatable
     public void setDataTable() {
         try {
             StockList.clear();
             ResultSet stocks = this.stock.getStocks();
-            
-            while(stocks.next()) {
+
+            while (stocks.next()) {
                 StockList.add(new Stock(
                         stocks.getInt("id"),
                         stocks.getInt("book_id"),
@@ -335,14 +331,14 @@ public class StockController extends Controller implements Initializable {
                 ));
                 tableStock.setItems(StockList);
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             this.showAlert(Alert.AlertType.ERROR, "Ups...", "", e.getMessage());
         }
     }
-    
+
     public void loadData() {
         this.setDataTable();
-        
+
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         bookCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));

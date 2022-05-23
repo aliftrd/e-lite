@@ -8,6 +8,7 @@ package Controllers;
 import Core.Controller;
 import Models.Author;
 import Models.Auth;
+import Utils.InputNumber;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -72,9 +73,10 @@ public class AuthorController extends Controller implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        nameBox.setText(new Auth().getName().toUpperCase());
+        nameBox.setText(Auth.getName().toUpperCase());
         formPage.setVisible(false);
         this.loadData();
+        new InputNumber().getInputNumber(nomorInput);
     }    
     
     @FXML
@@ -153,18 +155,12 @@ public class AuthorController extends Controller implements Initializable {
         addressInput.setText(null);
     }
     
-        private void inputValidation() throws Exception {
-//        String message = "wajib diisi";
-        if(nameInput.getText() == null || nameInput.getText().equals("")) {
-            throw new Exception("Nama wajib diisi");
+    private void inputValidation() throws Exception {
+        if((nameInput.getText() == null || nameInput.getText().equals(""))
+                || (nomorInput.getText() == null || nomorInput.getText().equals(""))
+                || (addressInput.getText() == null || addressInput.getText().equals(""))) {
+            throw new Exception("Data wajib diisi");
         }
-        if(nomorInput.getText() == null || nomorInput.getText().equals("")) {
-            throw new Exception("Nomor wajib diisi");
-        }
-        if(addressInput.getText() == null || addressInput.getText().equals("")) {
-            throw new Exception("Alamat wajib diisi");
-        }
-        
     } 
         
     @FXML
@@ -234,7 +230,7 @@ public class AuthorController extends Controller implements Initializable {
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
         addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
-createdAtCol.setCellValueFactory(new PropertyValueFactory<>("created_at"));
+        createdAtCol.setCellValueFactory(new PropertyValueFactory<>("created_at"));
     }
     
 }

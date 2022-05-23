@@ -15,8 +15,8 @@ import java.sql.SQLException;
  */
 public class Member extends Model {
     protected String table = "members";
-    int id, point;
-    String name, phone, gender, address, created_at;
+    protected int id, point;
+    protected String name, phone, gender, address, created_at;
     
     public Member(int id,int point, String name, String phone, String gender, String address, String created_at){
         this.id = id;

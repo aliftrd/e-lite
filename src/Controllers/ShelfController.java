@@ -71,7 +71,7 @@ public class ShelfController extends Controller implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        nameBox.setText(new Auth().getName().toUpperCase());
+        nameBox.setText(Auth.getName().toUpperCase());
         formPage.setVisible(false);
         this.loadData();
     }    
@@ -150,12 +150,9 @@ public class ShelfController extends Controller implements Initializable {
     }
     
         private void inputValidation() throws Exception {
-//        String message = "wajib diisi";
-        if(codeInput.getText() == null || codeInput.getText().equals("")) {
-            throw new Exception("Kode wajib diisi");
-        }
-        if(nameInput.getText() == null || nameInput.getText().equals("")) {
-            throw new Exception("Nama wajib diisi");
+        if((codeInput.getText() == null || codeInput.getText().equals(""))
+                || (nameInput.getText() == null || nameInput.getText().equals(""))) {
+            throw new Exception("Data wajib diisi");
         }
         
     } 

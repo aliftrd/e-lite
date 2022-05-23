@@ -15,8 +15,8 @@ import java.sql.SQLException;
 public class Publisher extends Model {
     protected String table = "publishers";
     
-    int id;
-    String name, phone, address, created_at;
+    protected int id;
+    protected String name, phone, address, created_at;
     
     public Publisher(int id, String name, String phone, String address, String created_at){
         this.id = id;

@@ -15,6 +15,7 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
+                  <TextField fx:id="search" layoutX="48.0" layoutY="20.0" onKeyReleased="#searchMethod" promptText="Cari" styleClass="search-input" />
                   <Button fx:id="btnTambah" graphicTextGap="19.0" layoutX="449.0" layoutY="20.0" mnemonicParsing="false" onAction="#btnTambahHandle" text="Tambah">
                      <styleClass>
                         <String fx:value="btn" />
@@ -102,7 +103,7 @@
                         </Pane>
                      </children>
                   </Pane>
-                  <AnchorPane fx:id="formPage" prefHeight="640.0" prefWidth="1002.0" visible="false">
+                  <AnchorPane fx:id="formPage" prefHeight="640.0" prefWidth="1002.0">
                      <styleClass>
                         <String fx:value="body-child" />
                         <String fx:value="bg-ligth" />
@@ -220,7 +221,6 @@
                         </ScrollPane>
                      </children>
                   </AnchorPane>
-                  <TextField fx:id="search" layoutX="48.0" layoutY="20.0" onKeyReleased="#searchMethod" promptText="Cari" styleClass="search-input" />
                </children></AnchorPane>
          </center>
          <left>

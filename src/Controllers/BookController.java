@@ -12,6 +12,7 @@ import Models.Book;
 import Models.Author;
 import Models.Publisher;
 import Models.Shelf;
+import Utils.InputNumber;
 import java.io.File;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -81,10 +82,12 @@ public class BookController extends Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        nameBox.setText(new Auth().getName().toUpperCase());
+        nameBox.setText(Auth.getName().toUpperCase());
         formPage.setVisible(false);
         this.initList();
         loadData();
+        new InputNumber().getInputNumber(publishYearInput);
+        new InputNumber().getInputNumber(priceInput);
     }
     
     private void initList() {
@@ -299,20 +302,14 @@ public class BookController extends Controller implements Initializable {
     }
     
     private void inputValidation() throws Exception {
-        if(isbnInput.getText() == null || isbnInput.getText().equals("")) {
-            throw new Exception("ISBN wajib diisi");
-        }
-        
-        if(titleInput.getText() == null || titleInput.getText().equals("")) {
-            throw new Exception("Judul wajib diisi");
-        }
-        
-        if(priceInput.getText() == null || priceInput.getText().equals("")) {
-            throw new Exception("Harga wajib diisi");
-        }
-        
-        if(publisherInput.getValue() == null) {
-            throw new Exception("Penerbit wajib diisi");
+        if((isbnInput.getText() == null || isbnInput.getText().equals(""))
+                || (titleInput.getText() == null || titleInput.getText().equals(""))
+                || (priceInput.getText() == null || priceInput.getText().equals(""))
+                || (publisherInput.getValue() == null)
+                || (authorInput.getValue() == null)
+                || (shelfInput.getValue() == null)
+                || (descInput.getText() == null || descInput.getText().equals(""))) {
+            throw new Exception("Data wajib diisi");
         }
     }
     
@@ -334,7 +331,10 @@ public class BookController extends Controller implements Initializable {
             Shelf shelf = shelfInput.getValue();
             
             if(btnSubmit.getText().toLowerCase().equals("tambah")) {
-                String filePath = new Storage().upload(path, fileName, isbn);
+                String filePath = "";
+                if(fileName != null) {
+                    filePath = new Storage().upload(path, fileName, isbn);
+                }
                 
                 this.book.store(isbn, title, price, filePath, desc, publish_year, author.getId(), publisher.getId(), shelf.getId());
                 this.showAlert(Alert.AlertType.INFORMATION, "SUKSES", "", "Data buku berhasil ditambahkan");
@@ -354,6 +354,7 @@ public class BookController extends Controller implements Initializable {
             this.loadData();
             formPage.setVisible(false);
         } catch(Exception e) {
+            e.printStackTrace();
             this.showAlert(Alert.AlertType.ERROR, "Ups...", "", e.getMessage());
         }
     }
@@ -390,6 +391,7 @@ public class BookController extends Controller implements Initializable {
                         books.getInt("shelf_id"),
                         books.getString("isbn"),
                         books.getString("title"),
+                        books.getString("name"),
                         books.getString("description"),
                         books.getString("image")
                 ));

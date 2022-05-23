@@ -14,8 +14,8 @@ import java.sql.SQLException;
  */
 public class Stock extends Model {
     protected String table = "stocks";
-    int id, book_id, amount;
-    String title, type, detail, created_at;
+    protected int id, book_id, amount;
+    protected String title, type, detail, created_at;
 
     public Stock(int id, int book_id, int amount, String title, String type, String detail, String created_at) {
         this.id = id;

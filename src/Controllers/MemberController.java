@@ -8,6 +8,7 @@ package Controllers;
 import Core.Controller;
 import Models.Auth;
 import Models.Member;
+import Utils.InputNumber;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -77,10 +78,11 @@ public class MemberController extends Controller implements Initializable {
    @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        nameBox.setText(new Auth().getName().toUpperCase());
+        nameBox.setText(Auth.getName().toUpperCase());
         formPage.setVisible(false);
         this.genderInput.setItems(genderList);
         this.loadData();
+        new InputNumber().getInputNumber(nomorInput);
     }    
  
     @FXML
@@ -158,20 +160,12 @@ public class MemberController extends Controller implements Initializable {
     }
     
         private void inputValidation() throws Exception {
-//        String message = "wajib diisi";
-        if(nameInput.getText() == null || nameInput.getText().equals("")) {
-            throw new Exception("Nama wajib diisi");
+        if((nameInput.getText() == null || nameInput.getText().equals(""))
+                || (genderInput.getValue() == null || genderInput.getValue().equals(""))
+                || (nomorInput.getText() == null || nomorInput.getText().equals(""))
+                || (addressInput.getText() == null || addressInput.getText().equals(""))) {
+            throw new Exception("Data wajib diisi");
         }
-        if(genderInput.getValue() == null || genderInput.getValue().equals("")) {
-            throw new Exception("Gender wajib diisi");
-        }
-        if(nomorInput.getText() == null || nomorInput.getText().equals("")) {
-            throw new Exception("Nomor wajib diisi");
-        }
-        if(addressInput.getText() == null || addressInput.getText().equals("")) {
-            throw new Exception("Alamat wajib diisi");
-        }
-        
     } 
         
     @FXML
@@ -229,7 +223,7 @@ public class MemberController extends Controller implements Initializable {
                     members.getString("gender"),
                     members.getString("address"),
                     members.getTimestamp("created_at").toString()
-            ));
+                ));
                 tableAnggota.setItems(MemberList);      
             }
         } catch (Exception e) {

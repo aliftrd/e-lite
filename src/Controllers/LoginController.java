@@ -69,7 +69,6 @@ public class LoginController extends Controller implements Initializable {
             }
         } catch(Exception e) {
             String message = e.getMessage();
-            System.out.println(message);
             info.setTextFill(Color.RED);
             info.setText("Error : " + message);
         }

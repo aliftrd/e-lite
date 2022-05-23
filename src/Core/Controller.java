@@ -36,7 +36,7 @@ public abstract class Controller {
     private Button btnTransaksi;
     
     public void btnTransaksiHandle(ActionEvent act) throws IOException {
-        this.showAlert(Alert.AlertType.INFORMATION, "UPS...", "", "Halaman ini masih dalam pengembangan.");
+        main.render("../View/Pages/Transaction.fxml");
     }
     
     @FXML

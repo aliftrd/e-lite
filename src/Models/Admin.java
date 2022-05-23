@@ -14,8 +14,8 @@ import java.sql.SQLException;
  */
 public class Admin extends Model {
     protected String table = "admins";
-    int id;
-    String name, username, phone, gender, address, created_at;
+    protected int id;
+    protected String name, username, phone, gender, address, created_at;
 
     public Admin(int id, String name, String username, String phone, String gender, String address, String created_at) {
         this.id = id;

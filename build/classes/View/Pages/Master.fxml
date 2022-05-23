@@ -205,37 +205,6 @@
                                     <String fx:value="bg-white" />
                                  </styleClass>
                               </Pane>
-                              <Pane layoutX="518.0" layoutY="560.0" onMouseClicked="#btnPetugasHandle">
-                                 <children>
-                                    <Pane>
-                                       <children>
-                                          <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="32.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../Public/Images/petugas.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                       <styleClass>
-                                          <String fx:value="icon-shape" />
-                                          <String fx:value="bg-dark-blue" />
-                                       </styleClass>
-                                    </Pane>
-                                    <Text layoutX="190.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-dark-blue" text="Riwayat Transaksi">
-                                       <font>
-                                          <Font name="System Bold" size="24.0" />
-                                       </font>
-                                    </Text>
-                                    <Text layoutX="191.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-grey" text="Kelola data riwayat transaksi">
-                                       <font>
-                                          <Font size="16.0" />
-                                       </font>
-                                    </Text>
-                                 </children>
-                                 <styleClass>
-                                    <String fx:value="master-btn" />
-                                    <String fx:value="bg-white" />
-                                 </styleClass>
-                              </Pane>
                               <Pane layoutX="54.0" layoutY="564.0" onMouseClicked="#btnStockHandle">
                                  <children>
                                     <Pane>
