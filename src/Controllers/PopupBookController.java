@@ -29,17 +29,18 @@ import javafx.scene.input.KeyEvent;
  * @author Illuminate
  */
 public class PopupBookController extends Controller implements Initializable {
+
     private Book book, selectedData;
     ObservableList<Book> BookList = FXCollections.observableArrayList();
-    
+
     public Book getSelectedData() {
         return this.selectedData;
     }
-    
+
     public PopupBookController() {
         this.book = new Book();
     }
-    
+
     /**
      * Initializes the controller class.
      */
@@ -47,40 +48,46 @@ public class PopupBookController extends Controller implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         loadData();
     }
-    
+
     @FXML
     private TableView tableBuku;
     @FXML
-    private TableColumn <Book, Integer> idCol;
+    private TableColumn<Book, Integer> idCol;
     @FXML
-    private TableColumn <Book, String> titleCol;
+    private TableColumn<Book, String> isbnCol;
     @FXML
-    private TableColumn <Book, String> authorCol;
-    
+    private TableColumn<Book, String> titleCol;
+    @FXML
+    private TableColumn<Book, String> authorCol;
+
     public void btnTambahHandle(ActionEvent act) {
-        this.selectedData = (Book) tableBuku.getSelectionModel().getSelectedItem();
-        ((Node)(act.getSource())).getScene().getWindow().hide();
+        if (tableBuku.getSelectionModel().getSelectedItem() == null) {
+            this.showAlert(Alert.AlertType.ERROR, "Ups...", "", "Silahkan pilih buku terlebih dahulu");
+        } else {
+            this.selectedData = (Book) tableBuku.getSelectionModel().getSelectedItem();
+            ((Node) (act.getSource())).getScene().getWindow().hide();
+        }
     }
-    
+
     @FXML
     private TextField search;
-    
+
     public void searchHandle(KeyEvent kev) {
         loadData();
     }
-    
+
     // Set Datatable
     public void setDataTable() {
         try {
             BookList.clear();
             ResultSet books;
-            if(search.getText().equals("") || search.getText() == null) {
+            if (search.getText().equals("") || search.getText() == null) {
                 books = this.book.getAll();
             } else {
                 books = this.book.getBySearch(search.getText());
             }
-            
-            while(books.next()) {
+
+            while (books.next()) {
                 BookList.add(new Book(
                         books.getInt("id"),
                         books.getInt("stock"),
@@ -97,15 +104,16 @@ public class PopupBookController extends Controller implements Initializable {
                 ));
                 tableBuku.setItems(BookList);
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             this.showAlert(Alert.AlertType.ERROR, "Ups...", "", e.getMessage());
         }
     }
-    
+
     public void loadData() {
         this.setDataTable();
-        
+
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        isbnCol.setCellValueFactory(new PropertyValueFactory<>("isbn"));
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         authorCol.setCellValueFactory(new PropertyValueFactory<>("name"));
     }

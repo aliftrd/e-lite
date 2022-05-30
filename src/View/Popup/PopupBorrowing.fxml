@@ -10,21 +10,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" style="-fx-min-width: 720; -fx-min-height: 780;" styleClass="bg-light-blue" stylesheets="@../../Public/CSS/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.PopupBookController">
+<AnchorPane id="AnchorPane" style="-fx-min-width: 720; -fx-min-height: 780;" styleClass="bg-light-blue" stylesheets="@../../Public/CSS/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.PopupBorrowingController">
    <children>
       <Pane layoutX="50.0" layoutY="83.0">
          <children>
-            <TableView fx:id="tableBuku" layoutY="40.0" style="-fx-min-width: 619; -fx-min-height: 575;">
+            <TableView fx:id="tablePeminjaman" layoutY="40.0" style="-fx-min-width: 619; -fx-min-height: 575;">
                <columns>
-                  <TableColumn fx:id="idCol" editable="false" prefWidth="64.0" text="ID" />
-                  <TableColumn fx:id="isbnCol" editable="false" prefWidth="171.0" text="ISBN" />
-                  <TableColumn fx:id="titleCol" editable="false" prefWidth="163.0" text="Judul" />
-                  <TableColumn fx:id="authorCol" editable="false" prefWidth="220.0" text="Pengarang" />
+                  <TableColumn fx:id="idCol" editable="false" prefWidth="124.0" text="ID" />
+                  <TableColumn fx:id="totalCol" editable="false" prefWidth="83.0" text="Total Buku" />
+                  <TableColumn fx:id="nameCol" editable="false" prefWidth="411.0" text="Nama Peminjam" />
                </columns>
             </TableView>
             <Pane style="-fx-min-width: 619;">
                <children>
-                  <Text layoutX="30.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-light" text="Buku">
+                  <Text layoutX="30.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-light" text="Peminjaman">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -57,6 +56,6 @@
             <String fx:value="text-light" />
          </styleClass>
       </Button>
-      <TextField fx:id="search" layoutX="50.0" layoutY="18.0" onKeyReleased="#searchHandle" promptText="Cari" styleClass="search-input" />
+      <TextField fx:id="search" layoutX="50.0" layoutY="18.0" onKeyReleased="#searchHandle" promptText="Cari Berdasarkan ID" styleClass="search-input" />
    </children>
 </AnchorPane>

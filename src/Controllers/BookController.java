@@ -354,7 +354,6 @@ public class BookController extends Controller implements Initializable {
             this.loadData();
             formPage.setVisible(false);
         } catch(Exception e) {
-            e.printStackTrace();
             this.showAlert(Alert.AlertType.ERROR, "Ups...", "", e.getMessage());
         }
     }

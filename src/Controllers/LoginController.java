@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
 /**
@@ -81,6 +82,10 @@ public class LoginController extends Controller implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         usernameInput.setText("admin");
         passwordInput.setText("admin");
+        
+        passwordInput.setOnAction(e -> {
+            loginAction(e);
+        });
     }    
     
 }

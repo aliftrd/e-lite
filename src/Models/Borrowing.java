@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class Borrowing extends Model {
 
     protected String table = "borrowings";
-    protected int member_id, admin_id;
+    protected int id, member_id, admin_id, total;
     protected String member_name, admin_name, borrow_date, return_date, created_at;
 
     public Borrowing(int member_id, int admin_id, String member_name, String admin_name, String borrow_date, String return_date, String created_at) {
@@ -33,6 +33,35 @@ public class Borrowing extends Model {
         this.setTable(this.table);
     }
 
+    public Borrowing(int id, int total, String member_name, String return_date) {
+        this.id = id;
+        this.total = total;
+        this.member_name = member_name;
+        this.return_date = return_date;
+    }
+    
+    public ResultSet getNotReturned() throws SQLException {
+        Model member = new Member();
+        Model borrowing_detail = new BorrowingDetail();
+        Model reversion = new Reversion();
+        
+        String query = "SELECT " + this.table + ".id, " + this.table + ".return_date, " + member.getTable() + ".name as name, (SELECT COUNT(*) FROM " + borrowing_detail.getTable() + " WHERE " + borrowing_detail.getTable() + ".borrowing_id = " + this.table + ".id) as total FROM " + this.table + " JOIN " +  member.getTable() + " ON " + member.getTable() + ".id = " + this.table + ".member_id WHERE NOT EXISTS (SELECT null FROM " + reversion.getTable() + " WHERE " + reversion.getTable() + ".borrowing_id = " + this.table + ".id)";
+        ResultSet response = this.getQuery(query);
+        
+        return response;
+    }
+    
+    public ResultSet getNotReturned(int search) throws SQLException {
+        Model member = new Member();
+        Model borrowing_detail = new BorrowingDetail();
+        Model reversion = new Reversion();
+        
+        String query = "SELECT " + this.table + ".id, (SELECT COUNT(*) FROM " + borrowing_detail.getTable() + " WHERE " + borrowing_detail.getTable() + ".borrowing_id = " + this.table + ".id) as total, " + member.getTable() + ".name as name FROM " + this.table + " JOIN " +  member.getTable() + " ON " + member.getTable() + ".id = " + this.table + ".member_id WHERE NOT EXISTS (SELECT null FROM " + reversion.getTable() + " WHERE " + reversion.getTable() + ".borrowing_id = " + this.table + ".id) AND " + this.table + ".id = " + search;
+        ResultSet response = this.getQuery(query);
+        
+        return response;
+    }
+
     public int getNotReturnedMember(int member_id) throws SQLException {
         int result = 0;
         Reversion reversion = new Reversion();
@@ -44,6 +73,22 @@ public class Borrowing extends Model {
             }
         }
         return result;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
     }
 
     public String getMember_name() {

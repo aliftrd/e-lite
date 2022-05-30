@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/TUGAS/e-lite/src/Controllers/BorrowingController.java</file>
+            <file>file:/D:/TUGAS/e-lite/src/Controllers/ReversionController.java</file>
             <file>file:/D:/TUGAS/e-lite/src/Controllers/BookController.java</file>
-            <file>file:/D:/TUGAS/e-lite/src/Controllers/PublisherController.java</file>
-            <file>file:/D:/TUGAS/e-lite/src/Controllers/MasterController.java</file>
+            <file>file:/D:/TUGAS/e-lite/src/Models/ReversionDetail.java</file>
+            <file>file:/D:/TUGAS/e-lite/src/View/Transaction/Reversion.fxml</file>
+            <file>file:/D:/TUGAS/e-lite/src/Controllers/PopupBorrowingController.java</file>
             <file>file:/D:/TUGAS/e-lite/src/Controllers/MemberController.java</file>
         </group>
     </open-files>

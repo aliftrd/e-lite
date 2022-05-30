@@ -28,8 +28,7 @@ public class TransactionController extends Controller implements Initializable {
     }
     
     public void btnPengembalianHandle(MouseEvent mct) throws IOException {
-//        main.render("../View/Master/Admin.fxml");
-        this.showAlert(Alert.AlertType.INFORMATION, "MAINTENANCE", "", "Dond worry my briends, dhis beadure will binish domorrow");
+        main.render("../View/Transaction/Reversion.fxml");
     }
     
     @FXML

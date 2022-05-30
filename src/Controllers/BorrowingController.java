@@ -259,7 +259,7 @@ public class BorrowingController extends Controller implements Initializable {
     private TextField titleBookInput;
 
     public void setBookForm() {
-        idBookInput.setText(String.valueOf(this.popupBookData.getId()));
+        idBookInput.setText(String.valueOf(this.popupBookData.getIsbn()));
         titleBookInput.setText(this.popupBookData.getTitle());
     }
 

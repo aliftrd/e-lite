@@ -16,9 +16,10 @@
          <children>
             <TableView fx:id="tableBuku" layoutY="40.0" style="-fx-min-width: 619; -fx-min-height: 575;">
                <columns>
-                  <TableColumn fx:id="idCol" editable="false" prefWidth="133.0" text="ID" />
-                  <TableColumn fx:id="titleCol" editable="false" prefWidth="212.0" text="Judul" />
-                  <TableColumn fx:id="authorCol" editable="false" prefWidth="273.0" text="Pengarang" />
+                  <TableColumn fx:id="idCol" editable="false" prefWidth="64.0" text="ID" />
+                  <TableColumn fx:id="isbnCol" editable="false" prefWidth="171.0" text="ISBN" />
+                  <TableColumn fx:id="titleCol" editable="false" prefWidth="163.0" text="Judul" />
+                  <TableColumn fx:id="authorCol" editable="false" prefWidth="220.0" text="Pengarang" />
                </columns>
             </TableView>
             <Pane style="-fx-min-width: 619;">

@@ -83,7 +83,7 @@ public class AdminController extends Controller implements Initializable {
         formPage.setVisible(false);
         this.genderInput.setItems(genderList);
         this.loadData();
-        
+
         new InputNumber().getInputNumber(nomorInput);
     }
 
@@ -159,23 +159,33 @@ public class AdminController extends Controller implements Initializable {
     }
 
     private void resetForm() {
-        idInput.setText(null);
-        nameInput.setText(null);
-        genderInput.setValue(null);
-        usernameInput.setText(null);
-        passwordInput.setText(null);
-        nomorInput.setText(null);
-        addressInput.setText(null);
+        idInput.setText("");
+        nameInput.setText("");
+        genderInput.setValue("");
+        usernameInput.setText("");
+        passwordInput.setText("");
+        nomorInput.setText("");
+        addressInput.setText("");
     }
 
     private void inputValidation() throws Exception {
         if ((nameInput.getText() == null || nameInput.getText().equals(""))
                 || (genderInput.getValue() == null)
                 || (usernameInput.getText() == null || usernameInput.getText().equals(""))
-                || (passwordInput.getText() == null && btnSubmit.getText().toLowerCase().equals("tambah"))
+                || (passwordInput.getText() == null && btnSubmit.getText().toLowerCase().equals("tambah") || passwordInput.getText().equals("") && btnSubmit.getText().toLowerCase().equals("tambah"))
                 || (nomorInput.getText() == null || nomorInput.getText().equals(""))
                 || (addressInput.getText() == null || addressInput.getText().equals(""))) {
             throw new Exception("Data wajib diisi");
+        }
+
+        if (btnSubmit.getText().toLowerCase().equals("tambah")) {
+            if (passwordInput.getText().length() < 6) {
+                throw new Exception("Password harus lebih dari 6 karakter");
+            }
+        } else {
+            if ((!passwordInput.getText().equals("") && passwordInput.getText().length() < 6)) {
+                throw new Exception("Password harus lebih dari 6 karakter");
+            }
         }
     }
 
@@ -184,9 +194,10 @@ public class AdminController extends Controller implements Initializable {
 
     public void btnSubmitHandle(ActionEvent act) {
         try {
+            System.out.println(passwordInput.getText() == null && btnSubmit.getText().toLowerCase().equals("tambah") || passwordInput.getText().equals("") && btnSubmit.getText().toLowerCase().equals("tambah"));
             this.inputValidation();
             String name = nameInput.getText(),
-                    username = usernameInput.getText(),
+                    username = usernameInput.getText().toLowerCase(),
                     password = passwordInput.getText().equals("") ? passwordInput.getText() : BCrypt.hashpw(passwordInput.getText(), BCrypt.gensalt()),
                     phone = nomorInput.getText(),
                     gender = (String) genderInput.getValue(),
@@ -207,7 +218,7 @@ public class AdminController extends Controller implements Initializable {
 
                 this.showAlert(Alert.AlertType.INFORMATION, "SUKSES", "", "Data petugas berhasil diubah");
             }
-
+            this.resetForm();
             this.loadData();
             formPage.setVisible(false);
         } catch (Exception e) {

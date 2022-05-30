@@ -26,7 +26,7 @@
                                     <Insets left="10.0" />
                                  </padding>
                               </TextField>
-                              <Label layoutX="26.0" layoutY="14.0" text="ID Buku" />
+                              <Label layoutX="26.0" layoutY="14.0" text="ISBN Buku" />
                               <Label layoutX="24.0" layoutY="108.0" text="Judul Buku" />
                               <TextField fx:id="titleBookInput" editable="false" layoutX="24.0" layoutY="134.0" minWidth="320.0" prefHeight="55.0" prefWidth="338.0" styleClass="input-control-disable">
                                  <padding>

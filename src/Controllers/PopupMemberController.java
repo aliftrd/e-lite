@@ -59,8 +59,12 @@ public class PopupMemberController extends Controller implements Initializable {
     private TableColumn <Member, String> phoneCol;
     
     public void btnTambahHandle(ActionEvent act) {
-        this.selectedData = (Member) tableAnggota.getSelectionModel().getSelectedItem();
-        ((Node)(act.getSource())).getScene().getWindow().hide();
+        if(tableAnggota.getSelectionModel().getSelectedItem() == null) {
+            this.showAlert(Alert.AlertType.ERROR, "Ups...", "", "Silahkan pilih anggota terlebih dahulu");
+        } else {
+            this.selectedData = (Member) tableAnggota.getSelectionModel().getSelectedItem();
+            ((Node)(act.getSource())).getScene().getWindow().hide();
+        }
     }
     
     @FXML
