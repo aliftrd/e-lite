@@ -28,7 +28,7 @@ public class BorrowingDetail extends Model {
     
     public ResultSet getDetailByParent(int borrowing_id) throws SQLException {
         Model book = new Book();
-        String query = "SELECT " + this.table + ".*, " + book.getTable() + ".title, " + book.getTable() + ".price FROM " + this.table + " JOIN " + book.getTable() + " ON " + book.getTable() + ".id = " + this.table + ".book_id WHERE borrowing_id = '" + borrowing_id + "'";
+        String query = "SELECT " + this.table + ".*, " + book.getTable() + ".id as book_id, " + book.getTable() + ".title, " + book.getTable() + ".price FROM " + this.table + " JOIN " + book.getTable() + " ON " + book.getTable() + ".id = " + this.table + ".book_id WHERE borrowing_id = '" + borrowing_id + "'";
         ResultSet response = this.getQuery(query);
 
         return response;

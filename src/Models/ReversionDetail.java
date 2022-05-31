@@ -13,15 +13,16 @@ import Core.Model;
  */
 public class ReversionDetail extends Model {
     protected String table = "reversion_details";
-    int reversion_id, borrowing_detail_id, price;
+    int book_id, reversion_id, borrowing_detail_id, price;
     String name, status;
     
     public ReversionDetail() {
         this.setTable(this.table);
     }
 
-    public ReversionDetail(int borrowing_detail_id, String name, int price, String status) {
+    public ReversionDetail(int borrowing_detail_id, int book_id, String name, int price, String status) {
         this.borrowing_detail_id = borrowing_detail_id;
+        this.book_id = book_id;
         this.name = name;
         this.price = price;
         this.status = status;
@@ -51,6 +52,14 @@ public class ReversionDetail extends Model {
 
     public int getPrice() {
         return price;
+    }
+
+    public int getBook_id() {
+        return book_id;
+    }
+
+    public void setBook_id(int book_id) {
+        this.book_id = book_id;
     }
 
     public void setPrice(int price) {

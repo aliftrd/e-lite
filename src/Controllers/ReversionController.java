@@ -11,6 +11,7 @@ import Models.Auth;
 import Models.Book;
 import Models.Borrowing;
 import Models.BorrowingDetail;
+import Models.Member;
 import Models.Reversion;
 import Models.ReversionDetail;
 import Utils.Time;
@@ -32,6 +33,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -54,6 +56,8 @@ public class ReversionController extends Controller implements Initializable {
     private final BorrowingDetail borrowing_details;
     private final Reversion reversions;
     private final ReversionDetail reversion_details;
+    private final Book books;
+    private final Member members;
     private Borrowing popupBorrowingData;
     private ReversionDetail selectionData = null;
 
@@ -62,6 +66,8 @@ public class ReversionController extends Controller implements Initializable {
         borrowing_details = new BorrowingDetail();
         reversions = new Reversion();
         reversion_details = new ReversionDetail();
+        books = new Book();
+        members = new Member();
     }
 
     @FXML
@@ -127,35 +133,59 @@ public class ReversionController extends Controller implements Initializable {
     }
 
     public void btnSubmitHandle(ActionEvent act) {
-        try {
-            Connection conn = Database.GetConnection();
-            PreparedStatement ps;
-            String query;
-            int transactionKey = 0;
+        if (showConfirm("", "Anda yakin aksi ini akan diproses?").get() == ButtonType.OK) {
             try {
-                conn.setAutoCommit(false);
-                query = "INSERT INTO " + this.reversions.getTable() + " (id, borrowing_id, created_at, updated_at) VALUES (NULL, " + this.popupBorrowingData.getId() + ", NOW(), NOW())";
-                ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-                ps.execute();
-                ResultSet res = ps.getGeneratedKeys();
+                Connection conn = Database.GetConnection();
+                PreparedStatement ps;
+                String query;
+                int transactionKey = 0;
+                try {
+                    conn.setAutoCommit(false);
+                    query = "INSERT INTO " + this.reversions.getTable() + " (id, borrowing_id, cash_penalty, point_penalty, created_at, updated_at) VALUES (NULL, " + this.popupBorrowingData.getId() + ", " + this.dendaTunaiInput.getText() + ", " + this.dendaPointInput.getText() + ", NOW(), NOW())";
+                    ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                    ps.execute();
+                    ResultSet res = ps.getGeneratedKeys();
 
-                if (res.next()) {
-                    transactionKey = res.getInt(1);
-                    query = "INSERT INTO " + this.reversion_details.getTable() + " (id, reversion_id, borrowing_detail_id, status, created_at, updated_at) VALUES ";
-                    for(int i = 0; i < this.reversionDetailList.size(); i++) {
-                        if(i != 0) {
-                            query += ", ";
+                    if (res.next()) {
+                        transactionKey = res.getInt(1);
+                        query = "INSERT INTO " + this.reversion_details.getTable() + " (id, reversion_id, borrowing_detail_id, status, created_at, updated_at) VALUES ";
+                        for (int i = 0; i < this.reversionDetailList.size(); i++) {
+                            if (i != 0) {
+                                query += ", ";
+                            }
+                            query += "(NULL, " + transactionKey + ", " + this.reversionDetailList.get(i).getBorrowing_detail_id() + ", '" + this.reversionDetailList.get(i).getStatus() + "', NOW(), NOW())";
                         }
-                        query += "(NULL, " + transactionKey + ")";
+
+                        ps = conn.prepareStatement(query);
+                        ps.execute();
+
+                        for (int i = 0; i < this.reversionDetailList.size(); i++) {
+                            if (!this.reversionDetailList.get(i).getStatus().equals(this.statusList.get(1))) {
+                                query = "UPDATE " + this.books.getTable() + " SET stock = stock + 1 WHERE id = " + this.reversionDetailList.get(i).getBook_id();
+                                ps = conn.prepareStatement(query);
+                                ps.execute();
+                            }
+                        }
                     }
+
+                    query = "UPDATE " + this.members.getTable() + " SET point = point + 5 WHERE id = " + this.popupBorrowingData.getMember_id();
+                    ps = conn.prepareStatement(query);
+                    ps.execute();
+
+                    query = "UPDATE " + this.members.getTable() + " SET point = point - " + dendaPointInput.getText() + " WHERE id = " + this.popupBorrowingData.getMember_id();
+                    ps = conn.prepareStatement(query);
+                    ps.execute();
+
+                    conn.commit();
+                    resetAll();
+                    this.showAlert(Alert.AlertType.INFORMATION, "SUKSES", "", "Pengembalian berhasil");
+                } catch (Exception e) {
+                    conn.rollback();
+                    throw new Exception(e.getMessage());
                 }
-                conn.commit();
-                resetAll();
             } catch (Exception e) {
-                conn.rollback();
-                throw new Exception(e.getMessage());
+                System.out.println(e.getMessage());
             }
-        } catch (Exception e) {
         }
     }
 
@@ -223,6 +253,7 @@ public class ReversionController extends Controller implements Initializable {
             while (borrowing_details.next()) {
                 reversionDetailList.add(new ReversionDetail(
                         borrowing_details.getInt("id"),
+                        borrowing_details.getInt("book_id"),
                         borrowing_details.getString("title"),
                         borrowing_details.getInt("price"),
                         statusList.get(0)

@@ -88,6 +88,7 @@ public class PopupBorrowingController extends Controller implements Initializabl
             while (borrowings.next()) {
                 BorrowingList.add(new Borrowing(
                         borrowings.getInt("id"),
+                        borrowings.getInt("member_id"),
                         borrowings.getInt("total"),
                         borrowings.getString("name"),
                         borrowings.getTimestamp("return_date").toString()

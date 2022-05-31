@@ -33,9 +33,10 @@ public class Borrowing extends Model {
         this.setTable(this.table);
     }
 
-    public Borrowing(int id, int total, String member_name, String return_date) {
+    public Borrowing(int id, int member_id, int total, String member_name, String return_date) {
         this.id = id;
         this.total = total;
+        this.member_id = member_id;
         this.member_name = member_name;
         this.return_date = return_date;
     }
@@ -45,7 +46,7 @@ public class Borrowing extends Model {
         Model borrowing_detail = new BorrowingDetail();
         Model reversion = new Reversion();
         
-        String query = "SELECT " + this.table + ".id, " + this.table + ".return_date, " + member.getTable() + ".name as name, (SELECT COUNT(*) FROM " + borrowing_detail.getTable() + " WHERE " + borrowing_detail.getTable() + ".borrowing_id = " + this.table + ".id) as total FROM " + this.table + " JOIN " +  member.getTable() + " ON " + member.getTable() + ".id = " + this.table + ".member_id WHERE NOT EXISTS (SELECT null FROM " + reversion.getTable() + " WHERE " + reversion.getTable() + ".borrowing_id = " + this.table + ".id)";
+        String query = "SELECT " + this.table + ".id, " + this.table + ".return_date, " + member.getTable() + ".id as member_id, " + member.getTable() + ".name as name, (SELECT COUNT(*) FROM " + borrowing_detail.getTable() + " WHERE " + borrowing_detail.getTable() + ".borrowing_id = " + this.table + ".id) as total FROM " + this.table + " JOIN " +  member.getTable() + " ON " + member.getTable() + ".id = " + this.table + ".member_id WHERE NOT EXISTS (SELECT null FROM " + reversion.getTable() + " WHERE " + reversion.getTable() + ".borrowing_id = " + this.table + ".id)";
         ResultSet response = this.getQuery(query);
         
         return response;
