@@ -47,6 +47,13 @@ public abstract class Controller {
     }
     
     @FXML
+    private Button btnLaporan;
+    
+    public void btnLaporanHandle(ActionEvent act) throws IOException {
+        main.render("../View/Pages/Report.fxml");
+    }
+    
+    @FXML
     private Button btnLogout;
     
     public void btnLogoutHandle(ActionEvent act) throws IOException {

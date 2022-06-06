@@ -259,6 +259,21 @@
                         <Insets left="20.0" />
                      </padding>
                   </Button>
+                  <Button fx:id="btnLaporan" alignment="TOP_CENTER" graphicTextGap="19.0" mnemonicParsing="false" onAction="#btnLaporanHandle" styleClass="sidebar-nav" text="Laporan">
+                     <graphic>
+                        <ImageView fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Public/Images/documents.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </Button>
                   <Button fx:id="btnLogout" alignment="TOP_CENTER" graphicTextGap="19.0" layoutX="10.0" layoutY="157.0" mnemonicParsing="false" onAction="#btnLogoutHandle" styleClass="sidebar-nav" text="Keluar">
                      <graphic>
                         <ImageView fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">

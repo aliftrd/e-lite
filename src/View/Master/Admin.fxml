@@ -282,11 +282,11 @@
                         <Insets left="20.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="btnLaporan" alignment="TOP_CENTER" graphicTextGap="19.0" mnemonicParsing="false" onAction="#btnLogoutHandle" styleClass="sidebar-nav" text="Keluar">
+                  <Button fx:id="btnLaporan" alignment="TOP_CENTER" graphicTextGap="19.0" mnemonicParsing="false" onAction="#btnLaporanHandle" styleClass="sidebar-nav" text="Laporan">
                      <graphic>
                         <ImageView fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../Public/Images/logout.png" />
+                              <Image url="@../../Public/Images/documents.png" />
                            </image>
                         </ImageView>
                      </graphic>

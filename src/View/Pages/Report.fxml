@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="body" stylesheets="@../../Public/CSS/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.TransactionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="body" stylesheets="@../../Public/CSS/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ReportController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <center>
@@ -20,7 +20,7 @@
                      <content>
                         <AnchorPane prefHeight="790.0" prefWidth="1002.0" style="-fx-min-width: 1002; -fx-min-height: 646;" styleClass="bg-ligth">
                            <children>
-                              <Pane layoutX="54.0" layoutY="24.0" onMouseClicked="#btnPeminjamanHandle">
+                              <Pane layoutX="54.0" layoutY="24.0" onMouseClicked="#btnRiwayatTransaksiHandle">
                                  <children>
                                     <Pane>
                                        <children>
@@ -35,12 +35,12 @@
                                           <String fx:value="bg-dark-blue" />
                                        </styleClass>
                                     </Pane>
-                                    <Text layoutX="190.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-dark-blue" text="Peminjaman">
+                                    <Text layoutX="190.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-dark-blue" text="Riwayat Transaksi">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="191.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-grey" text="Kelola data peminjaman">
+                                    <Text layoutX="191.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-grey" text="Kelola data riwayat transaksi">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
@@ -51,7 +51,7 @@
                                     <String fx:value="bg-white" />
                                  </styleClass>
                               </Pane>
-                              <Pane layoutX="518.0" layoutY="20.0" onMouseClicked="#btnPengembalianHandle">
+                              <Pane layoutX="518.0" layoutY="20.0" onMouseClicked="#btnPersentaseBukuHandle">
                                  <children>
                                     <Pane>
                                        <children>
@@ -66,12 +66,12 @@
                                           <String fx:value="bg-dark-blue" />
                                        </styleClass>
                                     </Pane>
-                                    <Text layoutX="190.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-dark-blue" text="Pengembalian">
+                                    <Text layoutX="190.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-dark-blue" text="Persentase Buku">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="191.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-grey" text="Kelola data pengembalian">
+                                    <Text layoutX="191.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-grey" text="Lihat persentase buku">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
@@ -115,7 +115,7 @@
                         <Insets />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnTransaksi" alignment="TOP_CENTER" graphicTextGap="19.0" mnemonicParsing="false" onAction="#btnTransaksiHandle" styleClass="sidebar-nav-active" text="Transaksi">
+                  <Button fx:id="btnTransaksi" alignment="TOP_CENTER" graphicTextGap="19.0" mnemonicParsing="false" onAction="#btnTransaksiHandle" styleClass="sidebar-nav" text="Transaksi">
                      <graphic>
                         <ImageView fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -148,7 +148,7 @@
                         <Insets left="20.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="btnLaporan" alignment="TOP_CENTER" graphicTextGap="19.0" mnemonicParsing="false" onAction="#btnLaporanHandle" styleClass="sidebar-nav" text="Laporan">
+                  <Button fx:id="btnLaporan" alignment="TOP_CENTER" graphicTextGap="19.0" mnemonicParsing="false" onAction="#btnLaporanHandle" styleClass="sidebar-nav-active" text="Laporan">
                      <graphic>
                         <ImageView fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                            <image>
