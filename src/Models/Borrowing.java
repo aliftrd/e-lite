@@ -8,7 +8,9 @@ package Models;
 import Core.Model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  *
@@ -132,7 +134,7 @@ public class Borrowing extends Model {
 
     public int getPerMonth(int month) throws SQLException {
         int result = 0;
-        String query = "SELECT COUNT(*) AS total_trx FROM " + this.table + " WHERE MONTH(borrow_date) = " + month;
+        String query = "SELECT COUNT(*) AS total_trx FROM " + this.table + " WHERE MONTH(borrow_date) = " + month + " AND YEAR(borrow_date) = " + new SimpleDateFormat("Y").format(new Date());
         ResultSet res = this.getQuery(query);
         if (res.next()) {
             result = res.getInt("total_trx");
