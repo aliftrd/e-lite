@@ -184,7 +184,7 @@ public class ReversionController extends Controller implements Initializable {
                     throw new Exception(e.getMessage());
                 }
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                this.showAlert(Alert.AlertType.INFORMATION, "SUKSES", "", e.getMessage());
             }
         }
     }

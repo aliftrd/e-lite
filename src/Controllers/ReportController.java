@@ -24,12 +24,12 @@ public class ReportController extends Controller implements Initializable {
 
     @FXML
     public void btnRiwayatTransaksiHandle(MouseEvent evt) throws IOException {
-        main.render("../View/Master/Publisher.fxml");
+        main.render("../View/Report/TransactionHistory.fxml");
     }
 
     @FXML
     public void btnPersentaseBukuHandle(MouseEvent evt) throws IOException {
-        main.render("../View/Master/Publisher.fxml");
+        main.render("../View/Report/PercentageBook.fxml");
     }
 
     @FXML

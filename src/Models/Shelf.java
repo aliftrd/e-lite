@@ -14,6 +14,7 @@ import java.sql.SQLException;
  * @author Illuminate
  */
 public class Shelf extends Model {
+
     protected String table = "shelves";
     protected int id;
     protected String code, name, created_at;
@@ -29,22 +30,29 @@ public class Shelf extends Model {
         this.setTable(this.table);
     }
 
-    public boolean store(String code,  String name) throws SQLException {
+    public boolean store(String code, String name) throws SQLException {
         String query = "INSERT INTO " + this.table + " (id, code,  name, created_at, updated_at) VALUES (NULL, '" + code + "', '" + name + "', NOW(), NOW())";
         this.executeQuery(query);
         return true;
     }
-    
+
     public boolean update(int id, String code, String name) throws SQLException {
         String query = "UPDATE " + this.table + " SET "
                 + "code = '" + code + "', "
                 + "name = '" + name + "', "
-
                 + "updated_at = NOW() WHERE id = '" + id + "'";
         this.executeQuery(query);
         return true;
     }
-    
+
+    public ResultSet getBookCount() throws SQLException {
+        Model book = new Book();
+        String query = "SELECT DISTINCT " + this.table + ".name, concat(round(( (SELECT COUNT(*) FROM " + book.getTable() + " WHERE " + book.getTable() + ".shelf_id = " + this.table + ".id)/(SELECT COUNT(*) FROM " + book.getTable() + ") * 100 ),2),'%') AS book_count FROM " + this.table;
+        ResultSet response = this.getQuery(query);
+        
+        return response;
+    }
+
     public int getId() {
         return id;
     }

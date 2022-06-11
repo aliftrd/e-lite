@@ -15,7 +15,7 @@ import java.sql.SQLException;
  */
 public class Member extends Model {
     protected String table = "members";
-    protected int id, point;
+    protected int id, point, total;
     protected String name, phone, gender, address, created_at;
     
     public Member(int id,int point, String name, String phone, String gender, String address, String created_at){
@@ -26,6 +26,11 @@ public class Member extends Model {
         this.gender = gender;
         this.address =  address;
         this.created_at = created_at;
+    }
+
+    public Member(String name, int total) {
+        this.name = name;
+        this.total = total;
     }
     
     public Member(){
@@ -48,6 +53,14 @@ public class Member extends Model {
                 + "updated_at = NOW() WHERE id = '" + id + "'";
         this.executeQuery(query);
         return true;
+    }
+    
+    public ResultSet getTenMember() throws SQLException {
+        Model borrowing = new Borrowing();
+        String query = "SELECT " + this.table + ".name, (SELECT COUNT(*) FROM " + borrowing.getTable() + " WHERE " + borrowing.getTable() + ".member_id = " + this.table + ".id) AS total FROM " + this.table + " ORDER BY total DESC LIMIT 10";
+        ResultSet response = this.getQuery(query);
+        
+        return response;
     }
     
     public int getId(){
@@ -76,6 +89,14 @@ public class Member extends Model {
     
     public String getCreated_at(){
         return created_at;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
     }
     
     public void setId(int id){
