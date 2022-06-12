@@ -12,6 +12,7 @@ import Core.Controller;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -80,9 +81,6 @@ public class LoginController extends Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        usernameInput.setText("admin");
-        passwordInput.setText("admin");
-        
         passwordInput.setOnAction(e -> {
             loginAction(e);
         });
