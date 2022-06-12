@@ -5,13 +5,13 @@
         <group>
             <file>file:/D:/TUGAS/e-lite/src/Main/Main.java</file>
             <file>file:/D:/TUGAS/e-lite/src/Controllers/BorrowingController.java</file>
+            <file>file:/D:/TUGAS/e-lite/src/Models/Member.java</file>
             <file>file:/D:/TUGAS/e-lite/src/Controllers/AdminController.java</file>
-            <file>file:/D:/TUGAS/e-lite/src/Core/Model.java</file>
-            <file>file:/D:/TUGAS/e-lite/src/Controllers/LoginController.java</file>
             <file>file:/D:/TUGAS/e-lite/src/Config/Database.java</file>
             <file>file:/D:/TUGAS/e-lite/src/Core/Controller.java</file>
             <file>file:/D:/TUGAS/e-lite/src/Models/Admin.java</file>
-            <file>file:/D:/TUGAS/e-lite/src/Controllers/MasterController.java</file>
+            <file>file:/D:/TUGAS/e-lite/src/Controllers/DashboardController.java</file>
+            <file>file:/D:/TUGAS/e-lite/src/Models/Borrowing.java</file>
         </group>
     </open-files>
 </project-private>

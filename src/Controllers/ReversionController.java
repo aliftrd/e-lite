@@ -133,58 +133,62 @@ public class ReversionController extends Controller implements Initializable {
     }
 
     public void btnSubmitHandle(ActionEvent act) {
-        if (showConfirm("", "Anda yakin aksi ini akan diproses?").get() == ButtonType.OK) {
-            try {
-                Connection conn = Database.GetConnection();
-                PreparedStatement ps;
-                String query;
-                int transactionKey = 0;
+        if (tableBook.getItems().toArray().length < 1) {
+            this.showAlert(Alert.AlertType.ERROR, "Error", "", "Data tidak boleh kosong!");
+        } else {
+            if (showConfirm("", "Anda yakin aksi ini akan diproses?").get() == ButtonType.OK) {
                 try {
-                    conn.setAutoCommit(false);
-                    query = "INSERT INTO " + this.reversions.getTable() + " (id, borrowing_id, cash_penalty, point_penalty, created_at, updated_at) VALUES (NULL, " + this.popupBorrowingData.getId() + ", " + this.dendaTunaiInput.getText() + ", " + this.dendaPointInput.getText() + ", NOW(), NOW())";
-                    ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-                    ps.execute();
-                    ResultSet res = ps.getGeneratedKeys();
+                    Connection conn = Database.GetConnection();
+                    PreparedStatement ps;
+                    String query;
+                    int transactionKey = 0;
+                    try {
+                        conn.setAutoCommit(false);
+                        query = "INSERT INTO " + this.reversions.getTable() + " (id, borrowing_id, cash_penalty, point_penalty, created_at, updated_at) VALUES (NULL, " + this.popupBorrowingData.getId() + ", " + this.dendaTunaiInput.getText() + ", " + this.dendaPointInput.getText() + ", NOW(), NOW())";
+                        ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                        ps.execute();
+                        ResultSet res = ps.getGeneratedKeys();
 
-                    if (res.next()) {
-                        transactionKey = res.getInt(1);
-                        query = "INSERT INTO " + this.reversion_details.getTable() + " (id, reversion_id, borrowing_detail_id, status, created_at, updated_at) VALUES ";
-                        for (int i = 0; i < this.reversionDetailList.size(); i++) {
-                            if (i != 0) {
-                                query += ", ";
+                        if (res.next()) {
+                            transactionKey = res.getInt(1);
+                            query = "INSERT INTO " + this.reversion_details.getTable() + " (id, reversion_id, borrowing_detail_id, status, created_at, updated_at) VALUES ";
+                            for (int i = 0; i < this.reversionDetailList.size(); i++) {
+                                if (i != 0) {
+                                    query += ", ";
+                                }
+                                query += "(NULL, " + transactionKey + ", " + this.reversionDetailList.get(i).getBorrowing_detail_id() + ", '" + this.reversionDetailList.get(i).getStatus() + "', NOW(), NOW())";
                             }
-                            query += "(NULL, " + transactionKey + ", " + this.reversionDetailList.get(i).getBorrowing_detail_id() + ", '" + this.reversionDetailList.get(i).getStatus() + "', NOW(), NOW())";
+
+                            ps = conn.prepareStatement(query);
+                            ps.execute();
+
+                            for (int i = 0; i < this.reversionDetailList.size(); i++) {
+                                if (!this.reversionDetailList.get(i).getStatus().equals(this.statusList.get(1))) {
+                                    query = "UPDATE " + this.books.getTable() + " SET stock = stock + 1 WHERE id = " + this.reversionDetailList.get(i).getBook_id();
+                                    ps = conn.prepareStatement(query);
+                                    ps.execute();
+                                }
+                            }
                         }
 
+                        query = "UPDATE " + this.members.getTable() + " SET point = point + 5 WHERE id = " + this.popupBorrowingData.getMember_id();
                         ps = conn.prepareStatement(query);
                         ps.execute();
 
-                        for (int i = 0; i < this.reversionDetailList.size(); i++) {
-                            if (!this.reversionDetailList.get(i).getStatus().equals(this.statusList.get(1))) {
-                                query = "UPDATE " + this.books.getTable() + " SET stock = stock + 1 WHERE id = " + this.reversionDetailList.get(i).getBook_id();
-                                ps = conn.prepareStatement(query);
-                                ps.execute();
-                            }
-                        }
+                        query = "UPDATE " + this.members.getTable() + " SET point = point - " + dendaPointInput.getText() + " WHERE id = " + this.popupBorrowingData.getMember_id();
+                        ps = conn.prepareStatement(query);
+                        ps.execute();
+
+                        conn.commit();
+                        resetAll();
+                        this.showAlert(Alert.AlertType.INFORMATION, "SUKSES", "", "Pengembalian berhasil");
+                    } catch (Exception e) {
+                        conn.rollback();
+                        throw new Exception(e.getMessage());
                     }
-
-                    query = "UPDATE " + this.members.getTable() + " SET point = point + 5 WHERE id = " + this.popupBorrowingData.getMember_id();
-                    ps = conn.prepareStatement(query);
-                    ps.execute();
-
-                    query = "UPDATE " + this.members.getTable() + " SET point = point - " + dendaPointInput.getText() + " WHERE id = " + this.popupBorrowingData.getMember_id();
-                    ps = conn.prepareStatement(query);
-                    ps.execute();
-
-                    conn.commit();
-                    resetAll();
-                    this.showAlert(Alert.AlertType.INFORMATION, "SUKSES", "", "Pengembalian berhasil");
                 } catch (Exception e) {
-                    conn.rollback();
-                    throw new Exception(e.getMessage());
+                    this.showAlert(Alert.AlertType.INFORMATION, "SUKSES", "", e.getMessage());
                 }
-            } catch (Exception e) {
-                this.showAlert(Alert.AlertType.INFORMATION, "SUKSES", "", e.getMessage());
             }
         }
     }

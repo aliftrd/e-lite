@@ -82,7 +82,11 @@ public class TransactionHistoryController extends Controller implements Initiali
     public void btnCariHandle(ActionEvent act) {
         try {
             inputValidation();
-            setDataTable();
+            if (endDateInput.getValue().toEpochDay() < startDateInput.getValue().toEpochDay()) {
+                throw new Exception("Tanggal akhir tidak boleh lebih kecil dari tanggal awal");
+            } else {
+                setDataTable();
+            }
         } catch (Exception e) {
             this.showAlert(Alert.AlertType.ERROR, "Ups...", "", e.getMessage());
         }
