@@ -107,7 +107,7 @@
                         <Insets />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnMaster" alignment="TOP_CENTER" graphicTextGap="19.0" mnemonicParsing="false" onAction="#btnMasterHandle" styleClass="sidebar-nav-active" text="Master">
+                  <Button fx:id="btnMaster" alignment="TOP_CENTER" graphicTextGap="19.0" mnemonicParsing="false" onAction="#btnMasterHandle" styleClass="sidebar-nav" text="Master">
                      <graphic>
                         <ImageView fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -122,7 +122,7 @@
                         <Insets left="20.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="btnLaporan" alignment="TOP_CENTER" graphicTextGap="19.0" mnemonicParsing="false" onAction="#btnLaporanHandle" styleClass="sidebar-nav" text="Laporan">
+                  <Button fx:id="btnLaporan" alignment="TOP_CENTER" graphicTextGap="19.0" mnemonicParsing="false" onAction="#btnLaporanHandle" styleClass="sidebar-nav-active" text="Laporan">
                      <graphic>
                         <ImageView fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                            <image>
