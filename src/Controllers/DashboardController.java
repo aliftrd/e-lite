@@ -61,7 +61,7 @@ public class DashboardController extends Controller implements Initializable {
         try {
             ResultSet books = this.book.getCount();
             if (books.next()) {
-                totalBuku.setText(books.getString(1) + " (" + books.getString(2) + ")");
+                totalBuku.setText(books.getString(1)  + "(" + books.getString(2) + ")");
             }
 
             ResultSet members = this.member.getCount();
@@ -118,7 +118,7 @@ public class DashboardController extends Controller implements Initializable {
             String[] titleMonths = {"Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"};
 
             XYChart.Series<String, Number> series = new XYChart.Series<>();
-            series.setName("Transaksi Bulanan");
+            series.setName("Transaksi Bulanan Tahun " + Calendar.getInstance().get(Calendar.YEAR));
             for (int i = 0; i < months.length; i++) {
                 series.getData().add(new XYChart.Data<>(titleMonths[i], new Borrowing().getPerMonth(i)));
             }

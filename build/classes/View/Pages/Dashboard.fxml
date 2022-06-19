@@ -207,11 +207,11 @@
                      <children>
                         <Pane style="-fx-min-width: 606;">
                            <children>
-                              <Text layoutX="30.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-light" text="Grafik">
+                              <Label fx:id="txtGrafik" layoutX="26.0" layoutY="8.0" styleClass="text-light" text="Grafik">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
-                              </Text>
+                              </Label>
                            </children>
                            <styleClass>
                               <String fx:value="card-header" />

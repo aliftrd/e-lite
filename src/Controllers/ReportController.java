@@ -31,6 +31,11 @@ public class ReportController extends Controller implements Initializable {
     public void btnPersentaseBukuHandle(MouseEvent evt) throws IOException {
         main.render("../View/Report/PercentageBook.fxml");
     }
+    
+    @FXML
+    public void btnMostVanishHandle(MouseEvent evt) throws IOException {
+        main.render("../View/Report/MostVanish.fxml");
+    }
 
     @FXML
     private Label nameBox;

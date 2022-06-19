@@ -39,6 +39,12 @@ public class Borrowing extends Model {
         this.borrow_date = borrow_date;
         this.return_date = return_date;
     }
+    
+    public Borrowing(int member_id, String member_name, int total) {
+        this.member_id = member_id;
+        this.member_name = member_name;
+        this.total = total;
+    }
 
     public Borrowing(int id) {
         this.id = id;
@@ -143,6 +149,13 @@ public class Borrowing extends Model {
             }
         }
         return result;
+    }
+    
+    public ResultSet mostHilang() throws SQLException {
+        String query = "SELECT b.member_id, m.name, COUNT(rd.id) total_hilang FROM borrowings b JOIN members m ON m.id = b.member_id JOIN reversions r ON r.borrowing_id = b.id JOIN reversion_details rd ON rd.reversion_id = r.id WHERE rd.status = 'Hilang' GROUP BY member_id ORDER BY total_hilang DESC";
+        ResultSet response = this.getQuery(query);
+        
+        return response;
     }
 
     public int getId() {
